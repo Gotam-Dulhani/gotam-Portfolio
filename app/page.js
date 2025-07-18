@@ -528,7 +528,7 @@ const projects = [
     title: 'YouTube Video Summarizer',
     description: 'A Generative AI-based web app that summarizes YouTube videos using LLMs. It transcribes video content and delivers concise, readable summaries — built with integrated AI models.',
     tech: ['Gen AI', 'LLMs', 'JavaScript', 'YouTube API', 'HTML', 'CSS'],
-    image: '/summarizer.png',
+    image: '/Summarizer.png',
     github: 'https://github.com/Gotam-Dulhani/youtube-video-summarizer'
   }
 ];
