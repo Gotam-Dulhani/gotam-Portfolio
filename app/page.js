@@ -663,7 +663,30 @@ const Portfolio = () => {
     </div>
   );
 
-  const ContactSection = () => (
+  // Fixed Contact Section Component
+const ContactSection = () => {
+  // Move form handling inside the component to prevent re-renders
+  const handleInputChange = (e) => {
+    setFormData(prev => ({
+      ...prev,
+      [e.target.name]: e.target.value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log('Form submitted:', formData);
+    alert('Message sent successfully!');
+    setFormData({
+      firstName: '',
+      lastName: '',
+      phone: '',
+      service: '',
+      message: ''
+    });
+  };
+
+  return (
     <div className="min-h-screen px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="grid grid-cols-2 gap-16">
         <div className="animate-fade-in-left">
@@ -684,6 +707,7 @@ const Portfolio = () => {
                 onChange={handleInputChange}
                 className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
                 required
+                key="firstName" // Add key to prevent React reconciliation issues
               />
               <input
                 type="text"
@@ -693,6 +717,7 @@ const Portfolio = () => {
                 onChange={handleInputChange}
                 className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
                 required
+                key="lastName" // Add key to prevent React reconciliation issues
               />
             </div>
             <input
@@ -703,6 +728,7 @@ const Portfolio = () => {
               onChange={handleInputChange}
               className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
               required
+              key="phone"
             />
             <select
               name="service"
@@ -710,6 +736,7 @@ const Portfolio = () => {
               onChange={handleInputChange}
               className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
               required
+              key="service"
             >
               <option value="">Select a service</option>
               <option value="web-development">Web Development</option>
@@ -725,6 +752,7 @@ const Portfolio = () => {
               rows={5}
               className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 resize-none"
               required
+              key="message"
             />
             <button
               type="submit"
