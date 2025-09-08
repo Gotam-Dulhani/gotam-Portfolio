@@ -690,9 +690,11 @@ const ContactSection = ({ setActiveSection }) => {
             >
               <option value="">Select a service</option>
               <option value="web-development">Web Development</option>
+              <option value="Generative AI">Generative AI</option>
+              <option value="Graphic Design">Graphic Design</option>
               <option value="game-development">Game Development</option>
-              <option value="ai-development">AI Development</option>
-              <option value="system-programming">System Programming</option>
+              <option value="Machine Learning">Machine Learning</option>
+              <option value="Microsoft Office Skills">Microsoft Office Skills</option>
             </select>
             <textarea
               name="message"
@@ -933,3 +935,4 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
+         
