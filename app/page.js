@@ -1,39 +1,87 @@
 'use client'
 
 import React, { useState, useEffect, useCallback } from 'react';
-import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
+import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Download, Menu, X } from 'lucide-react';
 import { ArrowDownRight } from 'lucide-react';
 
-// Move Navigation component outside
-const Navigation = ({ activeSection, setActiveSection }) => (
-  <nav className="fixed top-0 right-0 z-50 p-6">
-    <div className="flex items-center gap-8 bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/10">
-      {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
+// Move Navigation component outside with mobile menu
+const Navigation = ({ activeSection, setActiveSection }) => {
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+
+  const toggleMobileMenu = () => {
+    setIsMobileMenuOpen(!isMobileMenuOpen);
+  };
+
+  const handleSectionClick = (section) => {
+    setActiveSection(section);
+    setIsMobileMenuOpen(false);
+  };
+
+  return (
+    <>
+      {/* Desktop Navigation */}
+      <nav className="fixed top-0 right-0 z-50 p-6 hidden lg:block">
+        <div className="flex items-center gap-8 bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/10">
+          {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
+            <button
+              key={section}
+              onClick={() => setActiveSection(section)}
+              className={`text-sm font-medium transition-all duration-300 relative group ${
+                activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
+              }`}
+            >
+              {section.charAt(0).toUpperCase() + section.slice(1)}
+              <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 transform origin-left transition-transform duration-300 ${
+                activeSection === section ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+              }`} />
+            </button>
+          ))}
+          <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105">
+            Hire me
+          </button>
+        </div>
+      </nav>
+
+      {/* Mobile Navigation */}
+      <div className="lg:hidden">
         <button
-          key={section}
-          onClick={() => setActiveSection(section)}
-          className={`text-sm font-medium transition-all duration-300 relative group ${
-            activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
-          }`}
+          onClick={toggleMobileMenu}
+          className="fixed top-4 right-4 z-50 w-12 h-12 bg-black/20 backdrop-blur-md rounded-xl border border-white/10 flex items-center justify-center text-white hover:text-emerald-400 transition-colors"
         >
-          {section.charAt(0).toUpperCase() + section.slice(1)}
-          <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 transform origin-left transition-transform duration-300 ${
-            activeSection === section ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-          }`} />
+          {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
         </button>
-      ))}
-      <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105">
-        Hire me
-      </button>
-    </div>
-  </nav>
-);
+
+        {/* Mobile Menu Overlay */}
+        {isMobileMenuOpen && (
+          <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md">
+            <div className="flex flex-col items-center justify-center h-full space-y-8">
+              {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
+                <button
+                  key={section}
+                  onClick={() => handleSectionClick(section)}
+                  className={`text-2xl font-medium transition-all duration-300 ${
+                    activeSection === section ? 'text-emerald-400' : 'text-white hover:text-emerald-400'
+                  }`}
+                >
+                  {section.charAt(0).toUpperCase() + section.slice(1)}
+                </button>
+              ))}
+              <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-3 rounded-xl text-lg font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300">
+                Hire me
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
+  );
+};
 
 const HomeSection = ({ isLoaded, mousePosition, counts }) => (
-  <div className="min-h-screen flex items-center justify-between px-16 py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+  <div className="min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 sm:px-8 lg:px-16 py-20 lg:py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
     <div className="absolute inset-0 pointer-events-none">
       <div 
-        className="absolute w-96 h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
+        className="absolute w-64 sm:w-96 h-64 sm:h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
         style={{
           transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
           top: '10%',
@@ -41,7 +89,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => (
         }}
       />
       <div 
-        className="absolute w-64 h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+        className="absolute w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
         style={{
           transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
           bottom: '20%',
@@ -50,21 +98,21 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => (
       />
     </div>
 
-    <div className={`flex-1 max-w-2xl transform transition-all duration-1000 ${
+    <div className={`flex-1 max-w-2xl mb-12 lg:mb-0 transform transition-all duration-1000 ${
       isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
     }`}>
-      <h1 className="text-6xl font-bold text-white mb-2 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 animate-fade-in-up text-center lg:text-left" style={{ animationDelay: '0.4s' }}>
         Hello I'm
       </h1>
-      <h1 className="text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 animate-fade-in-up" 
+      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 animate-fade-in-up text-center lg:text-left" 
           style={{ animationDelay: '0.6s' }}>
         Gotam Dulhani
       </h1>
-      <p className="text-gray-300 text-lg mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+      <p className="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed animate-fade-in-up text-center lg:text-left" style={{ animationDelay: '0.8s' }}>
         Computer Science undergraduate with a solid foundation in programming, web development, and object-oriented design. Passionate about building intelligent systems and immersive user experiences through AI and Game Development.
       </p>
       
-      <div className="flex items-center gap-6 mb-12 flex-wrap animate-fade-in-up" style={{ animationDelay: '1s' }}>
+      <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mb-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
         <a href="Gotam-Dulhani.pdf" download className="inline-block">
           <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
             <Download size={20} className="group-hover:animate-bounce" />
@@ -92,18 +140,18 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => (
         </div>
       </div>
       
-      <div className="grid grid-cols-4 gap-8 animate-fade-in-up" style={{ animationDelay: '1.8s' }}>
+      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 animate-fade-in-up text-center" style={{ animationDelay: '1.8s' }}>
         {[
           { key: 'experience', label: 'Years of\nexperience' },
           { key: 'projects', label: 'Projects\ncompleted' },
           { key: 'technologies', label: 'Technologies\nmastered' },
           { key: 'commits', label: 'Code\ncommits' }
         ].map(({ key, label }, index) => (
-          <div key={key} className="text-center group">
-            <div className="text-4xl font-bold text-white mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-400">
+          <div key={key} className="group">
+            <div className="text-3xl lg:text-4xl font-bold text-white mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-400">
               {counts[key]}
             </div>
-            <div className="text-gray-400 text-sm whitespace-pre-line">{label}</div>
+            <div className="text-gray-400 text-xs sm:text-sm whitespace-pre-line">{label}</div>
           </div>
         ))}
       </div>
@@ -113,7 +161,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => (
       isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
     }`} style={{ transitionDelay: '0.5s' }}>
       <div className="relative group">
-        <div className="w-[300px] h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
+        <div className="w-[250px] sm:w-[300px] h-[333px] sm:h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
           <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
           <img
             src="/gotam.jpg"
@@ -162,28 +210,28 @@ const ServicesSection = ({ setActiveSection }) => {
   ];
 
   return (
-    <div className="min-h-screen px-6 md:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
+    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute w-[500px] h-[500px] bg-gradient-to-r from-emerald-500/5 to-teal-500/5 rounded-full blur-3xl top-10 right-10 animate-pulse" />
-        <div className="absolute w-[300px] h-[300px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl bottom-20 left-10 animate-pulse" style={{ animationDelay: '1s' }} />
+        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-r from-emerald-500/5 to-teal-500/5 rounded-full blur-3xl top-10 right-10 animate-pulse" />
+        <div className="absolute w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl bottom-20 left-10 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="text-center mb-20 animate-fade-in-up">
-        <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
+      <div className="text-center mb-16 sm:mb-20 animate-fade-in-up">
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
           My Services
         </h2>
-        <p className="text-gray-400 text-lg max-w-2xl mx-auto leading-relaxed">
+        <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4">
           Transforming ideas into digital reality with cutting-edge technologies and creative solutions
         </p>
         <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 mx-auto mt-8 rounded-full" />
       </div>
 
       <div className="max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
+        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-fade-in-up overflow-hidden min-h-[320px] flex flex-col"
+              className="group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-fade-in-up overflow-hidden min-h-[300px] sm:min-h-[320px] flex flex-col"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
@@ -196,16 +244,16 @@ const ServicesSection = ({ setActiveSection }) => {
                 </div>
               </div>
 
-              <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-all duration-300 leading-tight">
+              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-all duration-300 leading-tight">
                 {service.title}
               </h3>
 
-              <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
+              <p className="text-gray-400 text-sm sm:text-base mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
                 {service.description}
               </p>
 
               <div className="flex items-center justify-between mt-auto">
-                <button className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors duration-300 group-hover:translate-x-1">
+                <button className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors duration-300 group-hover:translate-x-1 text-sm sm:text-base">
                   Learn More
                 </button>
                 <div className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-400 group-hover:text-black transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-45 border border-white/10 flex-shrink-0">
@@ -219,17 +267,17 @@ const ServicesSection = ({ setActiveSection }) => {
           ))}
         </div>
 
-        <div className="text-center mt-20 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
-          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-white mb-4">
+        <div className="text-center mt-16 sm:mt-20 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto">
+            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
               Ready to bring your ideas to life?
             </h3>
-            <p className="text-gray-400 mb-6">
+            <p className="text-gray-400 mb-6 text-sm sm:text-base">
               Let's collaborate and create something amazing together
             </p>
             <button
               onClick={() => setActiveSection('contact')}
-              className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
+              className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 sm:px-8 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
             >
               Get In Touch
             </button>
@@ -246,27 +294,27 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'Python', icon: '🐍' },
     { name: 'JavaScript', icon: '🟨' },
     { name: 'React', icon: '⚛️' },
-    { name: 'HTML', icon: '🌐' },
+    { name: 'HTML', icon: '🌍' },
     { name: 'CSS', icon: '🎨' },
     { name: 'SFML', icon: '🎮' },
     { name: 'Bootstrap', icon: '📱' }
   ];
 
   return (
-    <div className="min-h-screen px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
-      <div className="flex gap-16">
-        <div className="w-80 animate-fade-in-left">
-          <h2 className="text-4xl font-bold text-white mb-8">Why hire me?</h2>
-          <p className="text-gray-400 mb-12">
+    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+      <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
+        <div className="w-full lg:w-80 animate-fade-in-left">
+          <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 text-center lg:text-left">Why hire me?</h2>
+          <p className="text-gray-400 mb-8 sm:mb-12 text-center lg:text-left text-sm sm:text-base">
             I bring passion, dedication, and fresh perspectives to every project. With strong academic foundation and hands-on experience in multiple technologies.
           </p>
           
-          <div className="space-y-4">
+          <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
             {['experience', 'education', 'skills', 'about'].map((tab, index) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`w-full py-4 px-6 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] animate-fade-in-up ${
+                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] animate-fade-in-up text-sm sm:text-base ${
                   activeTab === tab 
                     ? 'bg-gradient-to-r from-emerald-400 to-teal-500 text-black shadow-lg shadow-emerald-400/25' 
                     : 'bg-gray-800/50 backdrop-blur-sm text-white hover:bg-gray-700/50 border border-white/10'
@@ -282,11 +330,11 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
         <div className="flex-1 animate-fade-in-right">
           {activeTab === 'experience' && (
             <div className="animate-fade-in">
-              <h3 className="text-4xl font-bold text-white mb-8">My experience</h3>
-              <p className="text-gray-400 mb-12">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">My experience</h3>
+              <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Academic projects and hands-on experience with various technologies and programming languages.
               </p>
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {[
                   {
                     period: '2023 - Present',
@@ -307,11 +355,11 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     <div className="text-emerald-400 text-sm mb-2 group-hover:text-emerald-300 transition-colors">
                       {exp.period}
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
                       {exp.title}
                     </h4>
-                    <p className="text-gray-400 mb-4 font-medium">{exp.company}</p>
-                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
+                    <p className="text-gray-400 mb-4 font-medium text-sm sm:text-base">{exp.company}</p>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base">
                       {exp.description}
                     </p>
                   </div>
@@ -322,11 +370,11 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
 
           {activeTab === 'education' && (
             <div className="animate-fade-in">
-              <h3 className="text-4xl font-bold text-white mb-8">My education</h3>
-              <p className="text-gray-400 mb-12">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">My education</h3>
+              <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Strong academic foundation in computer science and related fields.
               </p>
-              <div className="grid grid-cols-2 gap-8">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {[
                   {
                     period: '2011 - 2021',
@@ -351,11 +399,11 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     <div className="text-emerald-400 text-sm mb-2 group-hover:text-emerald-300 transition-colors">
                       {edu.period}
                     </div>
-                    <h4 className="text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
+                    <h4 className="text-lg sm:text-xl font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors">
                       {edu.title}
                     </h4>
-                    <p className="text-gray-400 mb-4 font-medium">{edu.school}</p>
-                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors">
+                    <p className="text-gray-400 mb-4 font-medium text-sm sm:text-base">{edu.school}</p>
+                    <p className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base">
                       {edu.description}
                     </p>
                   </div>
@@ -366,19 +414,19 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
 
           {activeTab === 'skills' && (
             <div className="animate-fade-in">
-              <h3 className="text-4xl font-bold text-white mb-8">My skills</h3>
-              <p className="text-gray-400 mb-12">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">My skills</h3>
+              <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Proficient in multiple programming languages and development technologies.
               </p>
-              <div className="grid grid-cols-4 gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {skills.map((skill, index) => (
                   <div 
                     key={index} 
-                    className="bg-gray-800/50 backdrop-blur-sm p-6 rounded-xl text-center hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 border border-white/10 group animate-fade-in-up"
+                    className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 border border-white/10 group animate-fade-in-up"
                     style={{ animationDelay: `${index * 0.1}s` }}
                   >
-                    <div className="text-4xl mb-4 group-hover:animate-bounce">{skill.icon}</div>
-                    <h4 className="text-white font-medium group-hover:text-emerald-400 transition-colors">
+                    <div className="text-2xl sm:text-4xl mb-3 sm:mb-4 group-hover:animate-bounce">{skill.icon}</div>
+                    <h4 className="text-white font-medium group-hover:text-emerald-400 transition-colors text-sm sm:text-base">
                       {skill.name}
                     </h4>
                   </div>
@@ -389,12 +437,12 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
 
           {activeTab === 'about' && (
             <div className="animate-fade-in">
-              <h3 className="text-4xl font-bold text-white mb-8">About me</h3>
-              <p className="text-gray-400 mb-12">
+              <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">About me</h3>
+              <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Passionate Computer Science student with a keen interest in technology and innovation.
               </p>
-              <div className="grid grid-cols-2 gap-8">
-                <div className="space-y-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+                <div className="space-y-4 sm:space-y-6">
                   {[
                     { label: 'Name', value: 'Gotam Dulhani' },
                     { label: 'Nationality', value: 'Pakistani' },
@@ -402,31 +450,31 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     { label: 'Freelance', value: 'Available' },
                     { label: 'Education', value: 'BSCS - FAST NUCES KARACHI' }
                   ].map((item, index) => (
-                    <div key={index} className="flex justify-between group animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
-                      <span className="text-gray-400 group-hover:text-gray-300 transition-colors">{item.label}</span>
-                      <span className="text-white group-hover:text-emerald-400 transition-colors">{item.value}</span>
+                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between group animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                      <span className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base mb-1 sm:mb-0">{item.label}</span>
+                      <span className="text-white group-hover:text-emerald-400 transition-colors text-sm sm:text-base">{item.value}</span>
                     </div>
                   ))}
                 </div>
-                <div className="space-y-6">
+                <div className="space-y-4 sm:space-y-6">
                   {[
                     { label: 'Phone', value: '03233036735' },
                     { label: 'Email', value: 'ghotamdulhani123@gmail.com' },
                     { label: 'Languages', value: 'English, Urdu, Sindhi' },
                     { label: 'Skills', value: 'Web, AI, Game Dev, C++, JS' }
                   ].map((item, index) => (
-                    <div key={index} className="flex justify-between group animate-fade-in-up" style={{ animationDelay: `${(index + 5) * 0.1}s` }}>
-                      <span className="text-gray-400 group-hover:text-gray-300 transition-colors">{item.label}</span>
-                      <span className="text-white group-hover:text-emerald-400 transition-colors">{item.value}</span>
+                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between group animate-fade-in-up" style={{ animationDelay: `${(index + 5) * 0.1}s` }}>
+                      <span className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base mb-1 sm:mb-0">{item.label}</span>
+                      <span className="text-white group-hover:text-emerald-400 transition-colors text-sm sm:text-base">{item.value}</span>
                     </div>
                   ))}
-                  <div className="flex justify-between group animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
-                    <span className="text-gray-400 group-hover:text-gray-300 transition-colors">GitHub</span>
+                  <div className="flex flex-col sm:flex-row sm:justify-between group animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+                    <span className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base mb-1 sm:mb-0">GitHub</span>
                     <a
                       href="https://github.com/Gotam-Dulhani"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-emerald-400 hover:text-emerald-300 hover:underline transition-all transform hover:scale-105"
+                      className="text-emerald-400 hover:text-emerald-300 hover:underline transition-all transform hover:scale-105 text-sm sm:text-base break-all sm:break-normal"
                     >
                       github.com/Gotam-Dulhani
                     </a>
@@ -510,37 +558,37 @@ const WorkSection = () => {
   ];
 
   return (
-    <div className="min-h-screen px-8 sm:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      <div className="grid grid-cols-1 gap-20">
+    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      <div className="grid grid-cols-1 gap-12 sm:gap-16 lg:gap-20">
         {projects.map((project, index) => (
           <div 
             key={project.id} 
-            className={`flex flex-col lg:flex-row items-center gap-12 group animate-fade-in-up ${
+            className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 group animate-fade-in-up ${
               index % 2 === 1 ? 'lg:flex-row-reverse' : ''
             }`}
             style={{ animationDelay: `${index * 0.1}s` }}
           >
-            <div className="flex-1">
-              <div className="text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-4 group-hover:scale-110 transition-transform duration-300">
+            <div className="flex-1 text-center lg:text-left">
+              <div className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-4 group-hover:scale-110 transition-transform duration-300">
                 {String(index + 1).padStart(2, '0')}
               </div>
-              <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors duration-300">
+              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors duration-300">
                 {project.title}
               </h3>
-              <p className="text-gray-400 mb-6 group-hover:text-gray-300 transition-colors duration-300">
+              <p className="text-gray-400 text-sm sm:text-base mb-6 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed">
                 {project.description}
               </p>
-              <div className="flex flex-wrap gap-2 mb-6">
+              <div className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
                 {project.tech.map((tech, i) => (
                   <span
                     key={i}
-                    className="bg-gradient-to-r from-emerald-600/80 to-teal-600/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-sm border border-white/20 hover:scale-105 transition-transform duration-200"
+                    className="bg-gradient-to-r from-emerald-600/80 to-teal-600/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs sm:text-sm border border-white/20 hover:scale-105 transition-transform duration-200"
                   >
                     {tech}
                   </span>
                 ))}
               </div>
-              <div className="flex gap-4">
+              <div className="flex gap-4 justify-center lg:justify-start">
                 {project.github && (
                   <a
                     href={project.github}
@@ -553,13 +601,13 @@ const WorkSection = () => {
                 )}
               </div>
             </div>
-            <div className="flex-1">
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-4 rounded-2xl border border-white/10 group-hover:border-emerald-400/30 transition-all duration-500 transform group-hover:scale-105">
+            <div className="flex-1 w-full">
+              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border border-white/10 group-hover:border-emerald-400/30 transition-all duration-500 transform group-hover:scale-105">
                 <div className="relative overflow-hidden rounded-xl">
                   <img
                     src={project.image}
                     alt={project.title}
-                    className="rounded-xl object-cover w-full h-64 transform transition-transform duration-500 group-hover:scale-110"
+                    className="rounded-xl object-cover w-full h-48 sm:h-56 lg:h-64 transform transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                 </div>
@@ -637,18 +685,18 @@ const ContactSection = ({ setActiveSection }) => {
   }, [formData]);
 
   return (
-    <div className="min-h-screen px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
-      <div className="grid grid-cols-2 gap-16">
-        <div className="animate-fade-in-left">
-          <h2 className="text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8">
+    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
+        <div className="animate-fade-in-left order-2 lg:order-1">
+          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6 sm:mb-8 text-center lg:text-left">
             Let's work together
           </h2>
-          <p className="text-gray-400 mb-12">
+          <p className="text-gray-400 mb-8 sm:mb-12 text-center lg:text-left text-sm sm:text-base">
             I'm always interested in new opportunities and collaborations. Feel free to reach out!
           </p>
           
-          <form onSubmit={handleSubmit} className="space-y-6">
-            <div className="grid grid-cols-2 gap-4">
+          <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
                 type="text"
                 name="firstName"
@@ -656,7 +704,7 @@ const ContactSection = ({ setActiveSection }) => {
                 value={formData.firstName}
                 onChange={handleInputChange}
                 disabled={isSubmitting}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 required
               />
               <input
@@ -666,7 +714,7 @@ const ContactSection = ({ setActiveSection }) => {
                 value={formData.lastName}
                 onChange={handleInputChange}
                 disabled={isSubmitting}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
                 required
               />
             </div>
@@ -677,7 +725,7 @@ const ContactSection = ({ setActiveSection }) => {
               value={formData.phone}
               onChange={handleInputChange}
               disabled={isSubmitting}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               required
             />
             <select
@@ -685,7 +733,7 @@ const ContactSection = ({ setActiveSection }) => {
               value={formData.service}
               onChange={handleInputChange}
               disabled={isSubmitting}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               required
             >
               <option value="">Select a service</option>
@@ -703,19 +751,19 @@ const ContactSection = ({ setActiveSection }) => {
               onChange={handleInputChange}
               disabled={isSubmitting}
               rows={5}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 resize-none disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               required
             />
 
             {/* Submit Status Messages */}
             {submitStatus === 'success' && (
-              <div className="p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-xl text-emerald-400 text-center">
+              <div className="p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-xl text-emerald-400 text-center text-sm sm:text-base">
                 Message sent successfully! I'll get back to you soon.
               </div>
             )}
             
             {submitStatus === 'error' && (
-              <div className="p-4 bg-red-400/10 border border-red-400/20 rounded-xl text-red-400 text-center">
+              <div className="p-4 bg-red-400/10 border border-red-400/20 rounded-xl text-red-400 text-center text-sm sm:text-base">
                 Failed to send message. Please try again or contact me directly.
               </div>
             )}
@@ -723,7 +771,7 @@ const ContactSection = ({ setActiveSection }) => {
             <button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-4 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0 relative overflow-hidden"
+              className="w-full bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 sm:px-8 py-3 sm:py-4 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0 relative overflow-hidden text-sm sm:text-base"
             >
               <span className="relative z-10">
                 {isSubmitting ? 'Sending...' : 'Send message'}
@@ -737,7 +785,7 @@ const ContactSection = ({ setActiveSection }) => {
           </form>
         </div>
         
-        <div className="flex flex-col justify-center space-y-8 animate-fade-in-right">
+        <div className="flex flex-col justify-center space-y-6 sm:space-y-8 animate-fade-in-right order-1 lg:order-2">
           {[
             { icon: Phone, title: 'Phone', value: '03233036735', delay: '0s' },
             { icon: Mail, title: 'Email', value: 'ghotamdulhani123@gmail.com', delay: '0.2s' },
@@ -745,17 +793,17 @@ const ContactSection = ({ setActiveSection }) => {
           ].map(({ icon: Icon, title, value, delay }, index) => (
             <div 
               key={index} 
-              className="flex items-center gap-4 group animate-fade-in-up"
+              className="flex items-center gap-4 group animate-fade-in-up justify-center lg:justify-start"
               style={{ animationDelay: delay }}
             >
-              <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6">
+              <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 flex-shrink-0">
                 <Icon size={20} className="text-black" />
               </div>
-              <div>
-                <h4 className="text-white font-medium group-hover:text-emerald-400 transition-colors duration-300">
+              <div className="text-center lg:text-left">
+                <h4 className="text-white font-medium group-hover:text-emerald-400 transition-colors duration-300 text-sm sm:text-base">
                   {title}
                 </h4>
-                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300">
+                <p className="text-gray-400 group-hover:text-gray-300 transition-colors duration-300 text-sm sm:text-base break-all sm:break-normal">
                   {value}
                 </p>
               </div>
@@ -902,6 +950,13 @@ const Portfolio = () => {
           0% { transform: translate(0, 0); }
           100% { transform: translate(50px, 50px); }
         }
+        
+        @media (max-width: 1024px) {
+          .animate-fade-in-left,
+          .animate-fade-in-right {
+            animation: fade-in-up 0.8s ease-out forwards;
+          }
+        }
       `}</style>
       
       <div className="fixed inset-0 pointer-events-none opacity-5">
@@ -915,8 +970,8 @@ const Portfolio = () => {
         }} />
       </div>
       
-      <div className="fixed top-6 left-6 z-50 animate-fade-in-left">
-        <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
+      <div className="fixed top-4 sm:top-6 left-4 sm:left-6 z-40 animate-fade-in-left">
+        <h1 className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
           Computer Science Student
         </h1>
       </div>
@@ -935,4 +990,3 @@ const Portfolio = () => {
 };
 
 export default Portfolio;
-         
