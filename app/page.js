@@ -1,228 +1,133 @@
 'use client'
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Download } from 'lucide-react';
 import { ArrowDownRight } from 'lucide-react';
 
-const Portfolio = () => {
-  const [activeSection, setActiveSection] = useState('home');
-  const [activeTab, setActiveTab] = useState('experience');
-  const [isLoaded, setIsLoaded] = useState(false);
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    phone: '',
-    service: '',
-    message: ''
-  });
-
-  // Mouse tracking for subtle parallax effects
-  useEffect(() => {
-    const handleMouseMove = (e) => {
-      setMousePosition({
-        x: (e.clientX / window.innerWidth) * 100,
-        y: (e.clientY / window.innerHeight) * 100
-      });
-    };
-
-    window.addEventListener('mousemove', handleMouseMove);
-    return () => window.removeEventListener('mousemove', handleMouseMove);
-  }, []);
-
-  // Loading animation
-  useEffect(() => {
-    const timer = setTimeout(() => setIsLoaded(true), 100);
-    return () => clearTimeout(timer);
-  }, []);
-
-  // Counter animation
-  const [counts, setCounts] = useState({
-    experience: 0,
-    projects: 0,
-    technologies: 0,
-    commits: 0
-  });
-
-  useEffect(() => {
-    if (activeSection === 'home') {
-      const targets = { experience: 2, projects: 8, technologies: 12, commits: 150 };
-      const duration = 2000;
-      const steps = 50;
-      const increment = duration / steps;
-
-      Object.keys(targets).forEach(key => {
-        const target = targets[key];
-        const step = target / steps;
-        let current = 0;
-        
-        const timer = setInterval(() => {
-          current += step;
-          if (current >= target) {
-            setCounts(prev => ({ ...prev, [key]: target }));
-            clearInterval(timer);
-          } else {
-            setCounts(prev => ({ ...prev, [key]: Math.floor(current) }));
-          }
-        }, increment);
-      });
-    }
-  }, [activeSection]);
-
-  const handleInputChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    console.log('Form submitted:', formData);
-    alert('Message sent successfully!');
-    setFormData({
-      firstName: '',
-      lastName: '',
-      phone: '',
-      service: '',
-      message: ''
-    });
-  };
-
-  const skills = [
-    { name: 'C++', icon: '⚡' },
-    { name: 'Python', icon: '🐍' },
-    { name: 'JavaScript', icon: '🟨' },
-    { name: 'React', icon: '⚛️' },
-    { name: 'HTML', icon: '🌐' },
-    { name: 'CSS', icon: '🎨' },
-    { name: 'SFML', icon: '🎮' },
-    { name: 'Bootstrap', icon: '📱' }
-  ];
-
-  const Navigation = () => (
-    <nav className="fixed top-0 right-0 z-50 p-6">
-      <div className="flex items-center gap-8 bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/10">
-        {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
-          <button
-            key={section}
-            onClick={() => setActiveSection(section)}
-            className={`text-sm font-medium transition-all duration-300 relative group ${
-              activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
-            }`}
-          >
-            {section.charAt(0).toUpperCase() + section.slice(1)}
-            <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 transform origin-left transition-transform duration-300 ${
-              activeSection === section ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-            }`} />
-          </button>
-        ))}
-        <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105">
-          Hire me
+// Move Navigation component outside
+const Navigation = ({ activeSection, setActiveSection }) => (
+  <nav className="fixed top-0 right-0 z-50 p-6">
+    <div className="flex items-center gap-8 bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/10">
+      {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
+        <button
+          key={section}
+          onClick={() => setActiveSection(section)}
+          className={`text-sm font-medium transition-all duration-300 relative group ${
+            activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
+          }`}
+        >
+          {section.charAt(0).toUpperCase() + section.slice(1)}
+          <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 transform origin-left transition-transform duration-300 ${
+            activeSection === section ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+          }`} />
         </button>
-      </div>
-    </nav>
-  );
+      ))}
+      <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105">
+        Hire me
+      </button>
+    </div>
+  </nav>
+);
 
-  const HomeSection = () => (
-    <div className="min-h-screen flex items-center justify-between px-16 py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div 
-          className="absolute w-96 h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
-          style={{
-            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-            top: '10%',
-            left: '60%'
-          }}
-        />
-        <div 
-          className="absolute w-64 h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
-          style={{
-            transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
-            bottom: '20%',
-            left: '20%'
-          }}
-        />
-      </div>
+const HomeSection = ({ isLoaded, mousePosition, counts }) => (
+  <div className="min-h-screen flex items-center justify-between px-16 py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <div className="absolute inset-0 pointer-events-none">
+      <div 
+        className="absolute w-96 h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
+        style={{
+          transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+          top: '10%',
+          left: '60%'
+        }}
+      />
+      <div 
+        className="absolute w-64 h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+        style={{
+          transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
+          bottom: '20%',
+          left: '20%'
+        }}
+      />
+    </div>
 
-      <div className={`flex-1 max-w-2xl transform transition-all duration-1000 ${
-        isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-      }`}>
-        <h1 className="text-6xl font-bold text-white mb-2 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
-          Hello I'm
-        </h1>
-        <h1 className="text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 animate-fade-in-up" 
-            style={{ animationDelay: '0.6s' }}>
-          Gotam Dulhani
-        </h1>
-        <p className="text-gray-300 text-lg mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
-          Computer Science undergraduate with a solid foundation in programming, web development, and object-oriented design. Passionate about building intelligent systems and immersive user experiences through AI and Game Development.
-        </p>
+    <div className={`flex-1 max-w-2xl transform transition-all duration-1000 ${
+      isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+    }`}>
+      <h1 className="text-6xl font-bold text-white mb-2 animate-fade-in-up" style={{ animationDelay: '0.4s' }}>
+        Hello I'm
+      </h1>
+      <h1 className="text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 animate-fade-in-up" 
+          style={{ animationDelay: '0.6s' }}>
+        Gotam Dulhani
+      </h1>
+      <p className="text-gray-300 text-lg mb-8 leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.8s' }}>
+        Computer Science undergraduate with a solid foundation in programming, web development, and object-oriented design. Passionate about building intelligent systems and immersive user experiences through AI and Game Development.
+      </p>
+      
+      <div className="flex items-center gap-6 mb-12 flex-wrap animate-fade-in-up" style={{ animationDelay: '1s' }}>
+        <a href="Gotam-Dulhani.pdf" download className="inline-block">
+          <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
+            <Download size={20} className="group-hover:animate-bounce" />
+            DOWNLOAD CV
+          </button>
+        </a>
         
-        <div className="flex items-center gap-6 mb-12 flex-wrap animate-fade-in-up" style={{ animationDelay: '1s' }}>
-          <a href="Gotam-Dulhani.pdf" download className="inline-block">
-            <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
-              <Download size={20} className="group-hover:animate-bounce" />
-              DOWNLOAD CV
-            </button>
-          </a>
-          
-          <div className="flex gap-4">
-            {[
-              { icon: Github, href: "https://github.com/Gotam-Dulhani", delay: '1.2s' },
-              { icon: Linkedin, href: "https://www.linkedin.com/in/gotam-dulhani-47b35b289", delay: '1.4s' },
-              { icon: Mail, href: "mailto:ghotamdulhani123@gmail.com", delay: '1.6s' }
-            ].map(({ icon: Icon, href, delay }, index) => (
-              <a
-                key={index}
-                href={href}
-                target={href.startsWith('http') ? '_blank' : '_self'}
-                rel={href.startsWith('http') ? 'noopener noreferrer' : ''}
-                className="w-12 h-12 rounded-xl border-2 border-emerald-400/50 flex items-center justify-center text-emerald-400 hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 animate-fade-in-up backdrop-blur-sm"
-                style={{ animationDelay: delay }}
-              >
-                <Icon size={20} />
-              </a>
-            ))}
-          </div>
-        </div>
-        
-        <div className="grid grid-cols-4 gap-8 animate-fade-in-up" style={{ animationDelay: '1.8s' }}>
+        <div className="flex gap-4">
           {[
-            { key: 'experience', label: 'Years of\nexperience' },
-            { key: 'projects', label: 'Projects\ncompleted' },
-            { key: 'technologies', label: 'Technologies\nmastered' },
-            { key: 'commits', label: 'Code\ncommits' }
-          ].map(({ key, label }, index) => (
-            <div key={key} className="text-center group">
-              <div className="text-4xl font-bold text-white mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-400">
-                {counts[key]}
-              </div>
-              <div className="text-gray-400 text-sm whitespace-pre-line">{label}</div>
-            </div>
+            { icon: Github, href: "https://github.com/Gotam-Dulhani", delay: '1.2s' },
+            { icon: Linkedin, href: "https://www.linkedin.com/in/gotam-dulhani-47b35b289", delay: '1.4s' },
+            { icon: Mail, href: "mailto:ghotamdulhani123@gmail.com", delay: '1.6s' }
+          ].map(({ icon: Icon, href, delay }, index) => (
+            <a
+              key={index}
+              href={href}
+              target={href.startsWith('http') ? '_blank' : '_self'}
+              rel={href.startsWith('http') ? 'noopener noreferrer' : ''}
+              className="w-12 h-12 rounded-xl border-2 border-emerald-400/50 flex items-center justify-center text-emerald-400 hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 animate-fade-in-up backdrop-blur-sm"
+              style={{ animationDelay: delay }}
+            >
+              <Icon size={20} />
+            </a>
           ))}
         </div>
       </div>
       
-      <div className={`flex-1 flex justify-center items-center transform transition-all duration-1000 ${
-        isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
-      }`} style={{ transitionDelay: '0.5s' }}>
-        <div className="relative group">
-          <div className="w-[300px] h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
-            <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            <img
-              src="/gotam.jpg"
-              alt="Gotam Dulhani"
-              className="w-full h-full object-cover rounded-2xl"
-            />
+      <div className="grid grid-cols-4 gap-8 animate-fade-in-up" style={{ animationDelay: '1.8s' }}>
+        {[
+          { key: 'experience', label: 'Years of\nexperience' },
+          { key: 'projects', label: 'Projects\ncompleted' },
+          { key: 'technologies', label: 'Technologies\nmastered' },
+          { key: 'commits', label: 'Code\ncommits' }
+        ].map(({ key, label }, index) => (
+          <div key={key} className="text-center group">
+            <div className="text-4xl font-bold text-white mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-400">
+              {counts[key]}
+            </div>
+            <div className="text-gray-400 text-sm whitespace-pre-line">{label}</div>
           </div>
-          <div className="absolute -inset-4 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-        </div>
+        ))}
       </div>
     </div>
-  );
+    
+    <div className={`flex-1 flex justify-center items-center transform transition-all duration-1000 ${
+      isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
+    }`} style={{ transitionDelay: '0.5s' }}>
+      <div className="relative group">
+        <div className="w-[300px] h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
+          <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+          <img
+            src="/gotam.jpg"
+            alt="Gotam Dulhani"
+            className="w-full h-full object-cover rounded-2xl"
+          />
+        </div>
+        <div className="absolute -inset-4 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
+      </div>
+    </div>
+  </div>
+);
 
+const ServicesSection = ({ setActiveSection }) => {
   const services = [
     {
       id: '01',
@@ -256,15 +161,13 @@ const Portfolio = () => {
     }
   ];
 
-  const ServicesSection = () => (
+  return (
     <div className="min-h-screen px-6 md:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      {/* Background elements */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-[500px] h-[500px] bg-gradient-to-r from-emerald-500/5 to-teal-500/5 rounded-full blur-3xl top-10 right-10 animate-pulse" />
         <div className="absolute w-[300px] h-[300px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl bottom-20 left-10 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      {/* Header Section */}
       <div className="text-center mb-20 animate-fade-in-up">
         <h2 className="text-5xl md:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
           My Services
@@ -275,7 +178,6 @@ const Portfolio = () => {
         <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 mx-auto mt-8 rounded-full" />
       </div>
 
-      {/* Services Grid */}
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 lg:gap-10">
           {services.map((service, index) => (
@@ -284,10 +186,8 @@ const Portfolio = () => {
               className="group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-fade-in-up overflow-hidden min-h-[320px] flex flex-col"
               style={{ animationDelay: `${index * 0.15}s` }}
             >
-              {/* Animated background gradient */}
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               
-              {/* Icon area with ID */}
               <div className="mb-6 relative z-10">
                 <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-400/10 to-teal-500/10 flex items-center justify-center border border-emerald-400/20 group-hover:border-emerald-400/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
@@ -296,17 +196,14 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Service title */}
               <h3 className="text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-all duration-300 leading-tight">
                 {service.title}
               </h3>
 
-              {/* Service description */}
               <p className="text-gray-400 mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
                 {service.description}
               </p>
 
-              {/* Action button */}
               <div className="flex items-center justify-between mt-auto">
                 <button className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors duration-300 group-hover:translate-x-1">
                   Learn More
@@ -316,16 +213,12 @@ const Portfolio = () => {
                 </div>
               </div>
 
-              {/* Hover effect line */}
               <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 group-hover:w-full transition-all duration-500 rounded-full" />
-              
-              {/* Corner decoration */}
               <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400/30 rounded-full group-hover:bg-emerald-400 group-hover:scale-150 transition-all duration-300" />
             </div>
           ))}
         </div>
 
-        {/* Call to action section */}
         <div className="text-center mt-20 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
           <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto">
             <h3 className="text-2xl font-bold text-white mb-4">
@@ -345,8 +238,21 @@ const Portfolio = () => {
       </div>
     </div>
   );
-  
-  const ResumeSection = () => (
+};
+
+const ResumeSection = ({ activeTab, setActiveTab }) => {
+  const skills = [
+    { name: 'C++', icon: '⚡' },
+    { name: 'Python', icon: '🐍' },
+    { name: 'JavaScript', icon: '🟨' },
+    { name: 'React', icon: '⚛️' },
+    { name: 'HTML', icon: '🌐' },
+    { name: 'CSS', icon: '🎨' },
+    { name: 'SFML', icon: '🎮' },
+    { name: 'Bootstrap', icon: '📱' }
+  ];
+
+  return (
     <div className="min-h-screen px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="flex gap-16">
         <div className="w-80 animate-fade-in-left">
@@ -533,7 +439,9 @@ const Portfolio = () => {
       </div>
     </div>
   );
+};
 
+const WorkSection = () => {
   const projects = [
     {
       id: 1,
@@ -601,7 +509,7 @@ const Portfolio = () => {
     }
   ];
 
-  const WorkSection = () => (
+  return (
     <div className="min-h-screen px-8 sm:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
       <div className="grid grid-cols-1 gap-20">
         {projects.map((project, index) => (
@@ -662,8 +570,73 @@ const Portfolio = () => {
       </div>
     </div>
   );
+};
 
-  const ContactSection = () => (
+// Enhanced Contact Section with EmailJS integration
+const ContactSection = ({ setActiveSection }) => {
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    phone: '',
+    service: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState(null);
+
+  const handleInputChange = useCallback((e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  }, []);
+
+  const handleSubmit = useCallback(async (e) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setSubmitStatus(null);
+
+    try {
+      // Initialize EmailJS with your public key
+      if (typeof window !== 'undefined' && window.emailjs) {
+        window.emailjs.init('L7z1jG6fb3MqQp55d');
+        
+        // Send email using EmailJS
+        const result = await window.emailjs.send(
+          'service_yp94s7j',
+          'template_jdey9q8',
+          {
+            from_name: `${formData.firstName} ${formData.lastName}`,
+            from_email: formData.phone, // Using phone as contact since no email field
+            phone: formData.phone,
+            service: formData.service,
+            message: formData.message,
+            to_name: 'Gotam Dulhani',
+          }
+        );
+
+        console.log('Email sent successfully:', result);
+        setSubmitStatus('success');
+        setFormData({
+          firstName: '',
+          lastName: '',
+          phone: '',
+          service: '',
+          message: ''
+        });
+      } else {
+        throw new Error('EmailJS not loaded');
+      }
+    } catch (error) {
+      console.error('Email send failed:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+    }
+  }, [formData]);
+
+  return (
     <div className="min-h-screen px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="grid grid-cols-2 gap-16">
         <div className="animate-fade-in-left">
@@ -682,7 +655,8 @@ const Portfolio = () => {
                 placeholder="First name"
                 value={formData.firstName}
                 onChange={handleInputChange}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
+                disabled={isSubmitting}
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 required
               />
               <input
@@ -691,7 +665,8 @@ const Portfolio = () => {
                 placeholder="Last name"
                 value={formData.lastName}
                 onChange={handleInputChange}
-                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
+                disabled={isSubmitting}
+                className="bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
                 required
               />
             </div>
@@ -701,14 +676,16 @@ const Portfolio = () => {
               placeholder="Phone number"
               value={formData.phone}
               onChange={handleInputChange}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
+              disabled={isSubmitting}
+              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               required
             />
             <select
               name="service"
               value={formData.service}
               onChange={handleInputChange}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300"
+              disabled={isSubmitting}
+              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed"
               required
             >
               <option value="">Select a service</option>
@@ -722,15 +699,38 @@ const Portfolio = () => {
               placeholder="Type your message here..."
               value={formData.message}
               onChange={handleInputChange}
+              disabled={isSubmitting}
               rows={5}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 resize-none"
+              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 resize-none disabled:opacity-50 disabled:cursor-not-allowed"
               required
             />
+
+            {/* Submit Status Messages */}
+            {submitStatus === 'success' && (
+              <div className="p-4 bg-emerald-400/10 border border-emerald-400/20 rounded-xl text-emerald-400 text-center">
+                Message sent successfully! I'll get back to you soon.
+              </div>
+            )}
+            
+            {submitStatus === 'error' && (
+              <div className="p-4 bg-red-400/10 border border-red-400/20 rounded-xl text-red-400 text-center">
+                Failed to send message. Please try again or contact me directly.
+              </div>
+            )}
+
             <button
               type="submit"
-              className="w-full bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-4 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1"
+              disabled={isSubmitting}
+              className="w-full bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-4 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-[1.02] hover:-translate-y-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100 disabled:hover:translate-y-0 relative overflow-hidden"
             >
-              Send message
+              <span className="relative z-10">
+                {isSubmitting ? 'Sending...' : 'Send message'}
+              </span>
+              {isSubmitting && (
+                <div className="absolute inset-0 flex items-center justify-center">
+                  <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+                </div>
+              )}
             </button>
           </form>
         </div>
@@ -763,10 +763,76 @@ const Portfolio = () => {
       </div>
     </div>
   );
+};
+
+const Portfolio = () => {
+  const [activeSection, setActiveSection] = useState('home');
+  const [activeTab, setActiveTab] = useState('experience');
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+
+  // Load EmailJS script
+  useEffect(() => {
+    const script = document.createElement('script');
+    script.src = 'https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js';
+    script.async = true;
+    script.onload = () => {
+      // Initialize EmailJS after script loads
+      if (window.emailjs) {
+        window.emailjs.init('L7z1jG6fb3MqQp55d');
+      }
+    };
+    document.head.appendChild(script);
+
+    // Cleanup function
+    return () => {
+      if (document.head.contains(script)) {
+        document.head.removeChild(script);
+      }
+    };
+  }, []);
+
+  // Loading animation
+  useEffect(() => {
+    const timer = setTimeout(() => setIsLoaded(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Counter animation
+  const [counts, setCounts] = useState({
+    experience: 0,
+    projects: 0,
+    technologies: 0,
+    commits: 0
+  });
+
+  useEffect(() => {
+    if (activeSection === 'home') {
+      const targets = { experience: 2, projects: 8, technologies: 12, commits: 150 };
+      const duration = 2000;
+      const steps = 50;
+      const increment = duration / steps;
+
+      Object.keys(targets).forEach(key => {
+        const target = targets[key];
+        const step = target / steps;
+        let current = 0;
+        
+        const timer = setInterval(() => {
+          current += step;
+          if (current >= target) {
+            setCounts(prev => ({ ...prev, [key]: target }));
+            clearInterval(timer);
+          } else {
+            setCounts(prev => ({ ...prev, [key]: Math.floor(current) }));
+          }
+        }, increment);
+      });
+    }
+  }, [activeSection]);
 
   return (
     <div className="bg-black text-white min-h-screen relative overflow-x-hidden">
-      {/* Custom CSS for animations */}
       <style jsx>{`
         @keyframes fade-in-up {
           from {
@@ -829,9 +895,13 @@ const Portfolio = () => {
           animation: fade-in 0.6s ease-out forwards;
           opacity: 0;
         }
+        
+        @keyframes grid-move {
+          0% { transform: translate(0, 0); }
+          100% { transform: translate(50px, 50px); }
+        }
       `}</style>
       
-      {/* Animated background grid */}
       <div className="fixed inset-0 pointer-events-none opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `
@@ -843,27 +913,20 @@ const Portfolio = () => {
         }} />
       </div>
       
-      <style jsx>{`
-        @keyframes grid-move {
-          0% { transform: translate(0, 0); }
-          100% { transform: translate(50px, 50px); }
-        }
-      `}</style>
-      
       <div className="fixed top-6 left-6 z-50 animate-fade-in-left">
         <h1 className="text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
           Computer Science Student
         </h1>
       </div>
       
-      <Navigation />
+      <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
       
       <main>
-        {activeSection === 'home' && <HomeSection />}
-        {activeSection === 'services' && <ServicesSection />}
-        {activeSection === 'resume' && <ResumeSection />}
+        {activeSection === 'home' && <HomeSection isLoaded={isLoaded} mousePosition={mousePosition} counts={counts} />}
+        {activeSection === 'services' && <ServicesSection setActiveSection={setActiveSection} />}
+        {activeSection === 'resume' && <ResumeSection activeTab={activeTab} setActiveTab={setActiveTab} />}
         {activeSection === 'work' && <WorkSection />}
-        {activeSection === 'contact' && <ContactSection />}
+        {activeSection === 'contact' && <ContactSection setActiveSection={setActiveSection} />}
       </main>
     </div>
   );
