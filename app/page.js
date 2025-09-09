@@ -1,8 +1,38 @@
 'use client'
 
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 import { Github, Linkedin, Mail, Phone, MapPin, ExternalLink, Download, Menu, X } from 'lucide-react';
 import { ArrowDownRight } from 'lucide-react';
+
+// Custom hook for scroll animations
+const useScrollAnimation = (threshold = 0.1) => {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef();
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      { threshold, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const currentRef = ref.current;
+    if (currentRef) {
+      observer.observe(currentRef);
+    }
+
+    return () => {
+      if (currentRef) {
+        observer.unobserve(currentRef);
+      }
+    };
+  }, [threshold]);
+
+  return [ref, isVisible];
+};
 
 // Move Navigation component outside with mobile menu
 const Navigation = ({ activeSection, setActiveSection }) => {
@@ -17,6 +47,36 @@ const Navigation = ({ activeSection, setActiveSection }) => {
     setIsMobileMenuOpen(false);
   };
 
+  // Auto-detect active section based on scroll
+  useEffect(() => {
+    const handleScroll = () => {
+      const sections = ['home', 'services', 'resume', 'work', 'contact'];
+      const scrollPosition = window.scrollY + 200;
+
+      for (let i = sections.length - 1; i >= 0; i--) {
+        const section = document.getElementById(sections[i]);
+        if (section && section.offsetTop <= scrollPosition) {
+          setActiveSection(sections[i]);
+          break;
+        }
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [setActiveSection]);
+
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+    setIsMobileMenuOpen(false);
+  };
+
   return (
     <>
       {/* Desktop Navigation */}
@@ -25,7 +85,7 @@ const Navigation = ({ activeSection, setActiveSection }) => {
           {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
             <button
               key={section}
-              onClick={() => setActiveSection(section)}
+              onClick={() => scrollToSection(section)}
               className={`text-sm font-medium transition-all duration-300 relative group ${
                 activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
               }`}
@@ -36,7 +96,10 @@ const Navigation = ({ activeSection, setActiveSection }) => {
               }`} />
             </button>
           ))}
-          <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105">
+          <button 
+            onClick={() => scrollToSection('contact')}
+            className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105"
+          >
             Hire me
           </button>
         </div>
@@ -58,7 +121,7 @@ const Navigation = ({ activeSection, setActiveSection }) => {
               {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
                 <button
                   key={section}
-                  onClick={() => handleSectionClick(section)}
+                  onClick={() => scrollToSection(section)}
                   className={`text-2xl font-medium transition-all duration-300 ${
                     activeSection === section ? 'text-emerald-400' : 'text-white hover:text-emerald-400'
                   }`}
@@ -66,7 +129,10 @@ const Navigation = ({ activeSection, setActiveSection }) => {
                   {section.charAt(0).toUpperCase() + section.slice(1)}
                 </button>
               ))}
-              <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-3 rounded-xl text-lg font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300">
+              <button 
+                onClick={() => scrollToSection('contact')}
+                className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-3 rounded-xl text-lg font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300"
+              >
                 Hire me
               </button>
             </div>
@@ -77,105 +143,116 @@ const Navigation = ({ activeSection, setActiveSection }) => {
   );
 };
 
-const HomeSection = ({ isLoaded, mousePosition, counts }) => (
-  <div className="min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 sm:px-8 lg:px-16 py-20 lg:py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900">
-    <div className="absolute inset-0 pointer-events-none">
-      <div 
-        className="absolute w-64 sm:w-96 h-64 sm:h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
-        style={{
-          transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
-          top: '10%',
-          left: '60%'
-        }}
-      />
-      <div 
-        className="absolute w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
-        style={{
-          transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
-          bottom: '20%',
-          left: '20%'
-        }}
-      />
-    </div>
+const HomeSection = ({ isLoaded, mousePosition, counts }) => {
+  const [ref, isVisible] = useScrollAnimation(0.3);
 
-    <div className={`flex-1 max-w-2xl mb-12 lg:mb-0 transform transition-all duration-1000 ${
-      isLoaded ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-    }`}>
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 animate-fade-in-up text-center lg:text-left" style={{ animationDelay: '0.4s' }}>
-        Hello I'm
-      </h1>
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 animate-fade-in-up text-center lg:text-left" 
-          style={{ animationDelay: '0.6s' }}>
-        Gotam Dulhani
-      </h1>
-      <p className="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed animate-fade-in-up text-center lg:text-left" style={{ animationDelay: '0.8s' }}>
-        Computer Science undergraduate with a solid foundation in programming, web development, and object-oriented design. Passionate about building intelligent systems and immersive user experiences through AI and Game Development.
-      </p>
-      
-      <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mb-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
-        <a href="Gotam-Dulhani.pdf" download className="inline-block">
-          <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
-            <Download size={20} className="group-hover:animate-bounce" />
-            DOWNLOAD CV
-          </button>
-        </a>
+  return (
+    <div 
+      id="home"
+      ref={ref}
+      className={`min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 sm:px-8 lg:px-16 py-20 lg:py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+      }`}
+    >
+      <div className="absolute inset-0 pointer-events-none">
+        <div 
+          className="absolute w-64 sm:w-96 h-64 sm:h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
+          style={{
+            transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
+            top: '10%',
+            left: '60%'
+          }}
+        />
+        <div 
+          className="absolute w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
+          style={{
+            transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
+            bottom: '20%',
+            left: '20%'
+          }}
+        />
+      </div>
+
+      <div className={`flex-1 max-w-2xl mb-12 lg:mb-0 transform transition-all duration-1000 delay-300 ${
+        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+      }`}>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 text-center lg:text-left">
+          Hello I'm
+        </h1>
+        <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-8 text-center lg:text-left">
+          Gotam Dulhani
+        </h1>
+        <p className="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed text-center lg:text-left">
+          Computer Science undergraduate with a solid foundation in programming, web development, and object-oriented design. Passionate about building intelligent systems and immersive user experiences through AI and Game Development.
+        </p>
         
-        <div className="flex gap-4">
+        <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mb-12">
+          <a href="Gotam-Dulhani.pdf" download className="inline-block">
+            <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
+              <Download size={20} className="group-hover:animate-bounce" />
+              DOWNLOAD CV
+            </button>
+          </a>
+          
+          <div className="flex gap-4">
+            {[
+              { icon: Github, href: "https://github.com/Gotam-Dulhani" },
+              { icon: Linkedin, href: "https://www.linkedin.com/in/gotam-dulhani-47b35b289" },
+              { icon: Mail, href: "mailto:ghotamdulhani123@gmail.com" }
+            ].map(({ icon: Icon, href }, index) => (
+              <a
+                key={index}
+                href={href}
+                target={href.startsWith('http') ? '_blank' : '_self'}
+                rel={href.startsWith('http') ? 'noopener noreferrer' : ''}
+                className="w-12 h-12 rounded-xl border-2 border-emerald-400/50 flex items-center justify-center text-emerald-400 hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 backdrop-blur-sm"
+              >
+                <Icon size={20} />
+              </a>
+            ))}
+          </div>
+        </div>
+        
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 text-center">
           {[
-            { icon: Github, href: "https://github.com/Gotam-Dulhani", delay: '1.2s' },
-            { icon: Linkedin, href: "https://www.linkedin.com/in/gotam-dulhani-47b35b289", delay: '1.4s' },
-            { icon: Mail, href: "mailto:ghotamdulhani123@gmail.com", delay: '1.6s' }
-          ].map(({ icon: Icon, href, delay }, index) => (
-            <a
-              key={index}
-              href={href}
-              target={href.startsWith('http') ? '_blank' : '_self'}
-              rel={href.startsWith('http') ? 'noopener noreferrer' : ''}
-              className="w-12 h-12 rounded-xl border-2 border-emerald-400/50 flex items-center justify-center text-emerald-400 hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 animate-fade-in-up backdrop-blur-sm"
-              style={{ animationDelay: delay }}
-            >
-              <Icon size={20} />
-            </a>
+            { key: 'experience', label: 'Years of\nexperience' },
+            { key: 'projects', label: 'Projects\ncompleted' },
+            { key: 'technologies', label: 'Technologies\nmastered' },
+            { key: 'commits', label: 'Code\ncommits' }
+          ].map(({ key, label }, index) => (
+            <div key={key} className="group">
+              <div className="text-3xl lg:text-4xl font-bold text-white mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-400">
+                {counts[key]}
+              </div>
+              <div className="text-gray-400 text-xs sm:text-sm whitespace-pre-line">{label}</div>
+            </div>
           ))}
         </div>
       </div>
       
-      <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 animate-fade-in-up text-center" style={{ animationDelay: '1.8s' }}>
-        {[
-          { key: 'experience', label: 'Years of\nexperience' },
-          { key: 'projects', label: 'Projects\ncompleted' },
-          { key: 'technologies', label: 'Technologies\nmastered' },
-          { key: 'commits', label: 'Code\ncommits' }
-        ].map(({ key, label }, index) => (
-          <div key={key} className="group">
-            <div className="text-3xl lg:text-4xl font-bold text-white mb-2 transform transition-all duration-300 group-hover:scale-110 group-hover:text-emerald-400">
-              {counts[key]}
-            </div>
-            <div className="text-gray-400 text-xs sm:text-sm whitespace-pre-line">{label}</div>
+      <div className={`flex-1 flex justify-center items-center transform transition-all duration-1000 delay-500 ${
+        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
+      }`}>
+        <div className="relative group">
+          <div className="w-[250px] sm:w-[300px] h-[333px] sm:h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
+            <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <img
+              src="/gotam.jpg"
+              alt="Gotam Dulhani"
+              className="w-full h-full object-cover rounded-2xl"
+            />
           </div>
-        ))}
-      </div>
-    </div>
-    
-    <div className={`flex-1 flex justify-center items-center transform transition-all duration-1000 ${
-      isLoaded ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
-    }`} style={{ transitionDelay: '0.5s' }}>
-      <div className="relative group">
-        <div className="w-[250px] sm:w-[300px] h-[333px] sm:h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-          <img
-            src="/gotam.jpg"
-            alt="Gotam Dulhani"
-            className="w-full h-full object-cover rounded-2xl"
-          />
+          <div className="absolute -inset-4 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
         </div>
-        <div className="absolute -inset-4 bg-gradient-to-r from-emerald-400/20 to-teal-500/20 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
       </div>
     </div>
-  </div>
-);
+  );
+};
 
 const ServicesSection = ({ setActiveSection }) => {
+  const [ref, isVisible] = useScrollAnimation(0.2);
+  const [titleRef, isTitleVisible] = useScrollAnimation(0.3);
+
   const services = [
     {
       id: '01',
@@ -209,14 +286,29 @@ const ServicesSection = ({ setActiveSection }) => {
     }
   ];
 
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }
+  };
+
   return (
-    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
+    <div id="services" className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-r from-emerald-500/5 to-teal-500/5 rounded-full blur-3xl top-10 right-10 animate-pulse" />
         <div className="absolute w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl bottom-20 left-10 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div className="text-center mb-16 sm:mb-20 animate-fade-in-up">
+      <div 
+        ref={titleRef}
+        className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
+          isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+        }`}
+      >
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
           My Services
         </h2>
@@ -226,13 +318,19 @@ const ServicesSection = ({ setActiveSection }) => {
         <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 mx-auto mt-8 rounded-full" />
       </div>
 
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto" ref={ref}>
         <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
           {services.map((service, index) => (
             <div
               key={index}
-              className="group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-500 transform hover:scale-105 hover:-translate-y-2 animate-fade-in-up overflow-hidden min-h-[300px] sm:min-h-[320px] flex flex-col"
-              style={{ animationDelay: `${index * 0.15}s` }}
+              className={`group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 overflow-hidden min-h-[300px] sm:min-h-[320px] flex flex-col ${
+                isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-20'
+              }`}
+              style={{ 
+                transitionDelay: isVisible ? `${index * 150}ms` : '0ms'
+              }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               
@@ -267,7 +365,9 @@ const ServicesSection = ({ setActiveSection }) => {
           ))}
         </div>
 
-        <div className="text-center mt-16 sm:mt-20 animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+        <div className={`text-center mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${
+          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+        }`}>
           <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto">
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
               Ready to bring your ideas to life?
@@ -276,7 +376,7 @@ const ServicesSection = ({ setActiveSection }) => {
               Let's collaborate and create something amazing together
             </p>
             <button
-              onClick={() => setActiveSection('contact')}
+              onClick={() => scrollToSection('contact')}
               className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 sm:px-8 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
             >
               Get In Touch
@@ -289,6 +389,10 @@ const ServicesSection = ({ setActiveSection }) => {
 };
 
 const ResumeSection = ({ activeTab, setActiveTab }) => {
+  const [ref, isVisible] = useScrollAnimation(0.2);
+  const [sidebarRef, isSidebarVisible] = useScrollAnimation(0.3);
+  const [contentRef, isContentVisible] = useScrollAnimation(0.3);
+
   const skills = [
     { name: 'C++', icon: '⚡' },
     { name: 'Python', icon: '🐍' },
@@ -301,9 +405,14 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
   ];
 
   return (
-    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+    <div id="resume" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-        <div className="w-full lg:w-80 animate-fade-in-left">
+        <div 
+          ref={sidebarRef}
+          className={`w-full lg:w-80 transition-all duration-1000 ${
+            isSidebarVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+          }`}
+        >
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 text-center lg:text-left">Why hire me?</h2>
           <p className="text-gray-400 mb-8 sm:mb-12 text-center lg:text-left text-sm sm:text-base">
             I bring passion, dedication, and fresh perspectives to every project. With strong academic foundation and hands-on experience in multiple technologies.
@@ -314,12 +423,11 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] animate-fade-in-up text-sm sm:text-base ${
+                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] text-sm sm:text-base ${
                   activeTab === tab 
                     ? 'bg-gradient-to-r from-emerald-400 to-teal-500 text-black shadow-lg shadow-emerald-400/25' 
                     : 'bg-gray-800/50 backdrop-blur-sm text-white hover:bg-gray-700/50 border border-white/10'
                 }`}
-                style={{ animationDelay: `${index * 0.1}s` }}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
@@ -327,9 +435,14 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
           </div>
         </div>
 
-        <div className="flex-1 animate-fade-in-right">
+        <div 
+          ref={contentRef}
+          className={`flex-1 transition-all duration-1000 delay-300 ${
+            isContentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+          }`}
+        >
           {activeTab === 'experience' && (
-            <div className="animate-fade-in">
+            <div>
               <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">My experience</h3>
               <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Academic projects and hands-on experience with various technologies and programming languages.
@@ -340,18 +453,16 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     period: '2023 - Present',
                     title: 'Student Developer',
                     company: 'FAST - NUCES',
-                    description: 'Developing various projects using C++, Python, and web technologies. Focus on game development and AI.',
-                    delay: '0s'
+                    description: 'Developing various projects using C++, Python, and web technologies. Focus on game development and AI.'
                   },
                   {
                     period: '2022 - 2023',
                     title: 'Programming Enthusiast',
                     company: 'Self-taught',
-                    description: 'Started programming journey with C++ and exploring various programming concepts and technologies.',
-                    delay: '0.2s'
+                    description: 'Started programming journey with C++ and exploring various programming concepts and technologies.'
                   }
                 ].map((exp, index) => (
-                  <div key={index} className="border-l-4 border-emerald-400 pl-6 group animate-fade-in-up" style={{ animationDelay: exp.delay }}>
+                  <div key={index} className="border-l-4 border-emerald-400 pl-6 group">
                     <div className="text-emerald-400 text-sm mb-2 group-hover:text-emerald-300 transition-colors">
                       {exp.period}
                     </div>
@@ -369,7 +480,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
           )}
 
           {activeTab === 'education' && (
-            <div className="animate-fade-in">
+            <div>
               <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">My education</h3>
               <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Strong academic foundation in computer science and related fields.
@@ -395,7 +506,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     description: 'Currently pursuing a degree in Computer Science with a focus on Data Structures, OOP, and AI fundamentals.'
                   }
                 ].map((edu, index) => (
-                  <div key={index} className="border-l-4 border-emerald-400 pl-6 group animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                  <div key={index} className="border-l-4 border-emerald-400 pl-6 group">
                     <div className="text-emerald-400 text-sm mb-2 group-hover:text-emerald-300 transition-colors">
                       {edu.period}
                     </div>
@@ -413,7 +524,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
           )}
 
           {activeTab === 'skills' && (
-            <div className="animate-fade-in">
+            <div>
               <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">My skills</h3>
               <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Proficient in multiple programming languages and development technologies.
@@ -422,8 +533,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                 {skills.map((skill, index) => (
                   <div 
                     key={index} 
-                    className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 border border-white/10 group animate-fade-in-up"
-                    style={{ animationDelay: `${index * 0.1}s` }}
+                    className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 border border-white/10 group"
                   >
                     <div className="text-2xl sm:text-4xl mb-3 sm:mb-4 group-hover:animate-bounce">{skill.icon}</div>
                     <h4 className="text-white font-medium group-hover:text-emerald-400 transition-colors text-sm sm:text-base">
@@ -436,7 +546,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
           )}
 
           {activeTab === 'about' && (
-            <div className="animate-fade-in">
+            <div>
               <h3 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8">About me</h3>
               <p className="text-gray-400 mb-8 sm:mb-12 text-sm sm:text-base">
                 Passionate Computer Science student with a keen interest in technology and innovation.
@@ -450,7 +560,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     { label: 'Freelance', value: 'Available' },
                     { label: 'Education', value: 'BSCS - FAST NUCES KARACHI' }
                   ].map((item, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between group animate-fade-in-up" style={{ animationDelay: `${index * 0.1}s` }}>
+                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between group">
                       <span className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base mb-1 sm:mb-0">{item.label}</span>
                       <span className="text-white group-hover:text-emerald-400 transition-colors text-sm sm:text-base">{item.value}</span>
                     </div>
@@ -463,12 +573,12 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
                     { label: 'Languages', value: 'English, Urdu, Sindhi' },
                     { label: 'Skills', value: 'Web, AI, Game Dev, C++, JS' }
                   ].map((item, index) => (
-                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between group animate-fade-in-up" style={{ animationDelay: `${(index + 5) * 0.1}s` }}>
+                    <div key={index} className="flex flex-col sm:flex-row sm:justify-between group">
                       <span className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base mb-1 sm:mb-0">{item.label}</span>
                       <span className="text-white group-hover:text-emerald-400 transition-colors text-sm sm:text-base">{item.value}</span>
                     </div>
                   ))}
-                  <div className="flex flex-col sm:flex-row sm:justify-between group animate-fade-in-up" style={{ animationDelay: '0.9s' }}>
+                  <div className="flex flex-col sm:flex-row sm:justify-between group">
                     <span className="text-gray-400 group-hover:text-gray-300 transition-colors text-sm sm:text-base mb-1 sm:mb-0">GitHub</span>
                     <a
                       href="https://github.com/Gotam-Dulhani"
@@ -490,6 +600,9 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
 };
 
 const WorkSection = () => {
+  const [ref, isVisible] = useScrollAnimation(0.1);
+  const [titleRef, isTitleVisible] = useScrollAnimation(0.2);
+
   const projects = [
     {
       id: 1,
@@ -558,70 +671,111 @@ const WorkSection = () => {
   ];
 
   return (
-    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
-      <div className="grid grid-cols-1 gap-12 sm:gap-16 lg:gap-20">
-        {projects.map((project, index) => (
-          <div 
-            key={project.id} 
-            className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 group animate-fade-in-up ${
-              index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-            }`}
-            style={{ animationDelay: `${index * 0.1}s` }}
-          >
-            <div className="flex-1 text-center lg:text-left">
-              <div className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-4 group-hover:scale-110 transition-transform duration-300">
-                {String(index + 1).padStart(2, '0')}
+    <div id="work" className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+      {/* Section Title */}
+      <div 
+        ref={titleRef}
+        className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
+          isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+        }`}
+      >
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
+          My Work
+        </h2>
+        <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4">
+          A collection of projects showcasing my skills in web development, game development, AI, and more
+        </p>
+        <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 mx-auto mt-8 rounded-full" />
+      </div>
+
+      {/* Projects Grid */}
+      <div ref={ref} className="max-w-7xl mx-auto">
+        <div className="grid grid-cols-1 gap-12 sm:gap-16 lg:gap-20">
+          {projects.map((project, index) => (
+            <div 
+              key={project.id} 
+              className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 group transition-all duration-1000 ${
+                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
+              } ${
+                isVisible 
+                  ? 'opacity-100 translate-y-0' 
+                  : 'opacity-0 translate-y-20'
+              }`}
+              style={{ 
+                transitionDelay: isVisible ? `${index * 150}ms` : '0ms'
+              }}
+            >
+              <div className="flex-1 text-center lg:text-left">
+                <div className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-4 group-hover:scale-110 transition-transform duration-300">
+                  {String(index + 1).padStart(2, '0')}
+                </div>
+                <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors duration-300">
+                  {project.title}
+                </h3>
+                <p className="text-gray-400 text-sm sm:text-base mb-6 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed">
+                  {project.description}
+                </p>
+                <div className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
+                  {project.tech.map((tech, i) => (
+                    <span
+                      key={i}
+                      className="bg-gradient-to-r from-emerald-600/80 to-teal-600/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs sm:text-sm border border-white/20 hover:scale-105 transition-transform duration-200"
+                    >
+                      {tech}
+                    </span>
+                  ))}
+                </div>
+                <div className="flex gap-4 justify-center lg:justify-start">
+                  {project.github && (
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-xl bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 border border-white/20"
+                    >
+                      <Github size={20} />
+                    </a>
+                  )}
+                </div>
               </div>
-              <h3 className="text-2xl sm:text-3xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-colors duration-300">
-                {project.title}
-              </h3>
-              <p className="text-gray-400 text-sm sm:text-base mb-6 group-hover:text-gray-300 transition-colors duration-300 leading-relaxed">
-                {project.description}
-              </p>
-              <div className="flex flex-wrap gap-2 mb-6 justify-center lg:justify-start">
-                {project.tech.map((tech, i) => (
-                  <span
-                    key={i}
-                    className="bg-gradient-to-r from-emerald-600/80 to-teal-600/80 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs sm:text-sm border border-white/20 hover:scale-105 transition-transform duration-200"
-                  >
-                    {tech}
-                  </span>
-                ))}
-              </div>
-              <div className="flex gap-4 justify-center lg:justify-start">
-                {project.github && (
-                  <a
-                    href={project.github}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-12 h-12 rounded-xl bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 border border-white/20"
-                  >
-                    <Github size={20} />
-                  </a>
-                )}
-              </div>
-            </div>
-            <div className="flex-1 w-full">
-              <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border border-white/10 group-hover:border-emerald-400/30 transition-all duration-500 transform group-hover:scale-105">
-                <div className="relative overflow-hidden rounded-xl">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="rounded-xl object-cover w-full h-48 sm:h-56 lg:h-64 transform transition-transform duration-500 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+              <div className="flex-1 w-full">
+                <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border border-white/10 group-hover:border-emerald-400/30 transition-all duration-500 transform group-hover:scale-105">
+                  <div className="relative overflow-hidden rounded-xl">
+                    {/* Placeholder for missing images */}
+                    <div className="w-full h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center relative overflow-hidden group-hover:scale-110 transition-transform duration-500">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover rounded-xl"
+                        onError={(e) => {
+                          e.target.style.display = 'none';
+                          e.target.nextElementSibling.style.display = 'flex';
+                        }}
+                      />
+                      <div className="absolute inset-0 flex items-center justify-center text-gray-400 text-lg font-medium hidden">
+                        {project.title}
+                      </div>
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
+
+
     </div>
   );
 };
 
 // Enhanced Contact Section with EmailJS integration
 const ContactSection = ({ setActiveSection }) => {
+  const [ref, isVisible] = useScrollAnimation(0.2);
+  const [formRef, isFormVisible] = useScrollAnimation(0.3);
+  const [contactRef, isContactVisible] = useScrollAnimation(0.3);
+
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -685,12 +839,30 @@ const ContactSection = ({ setActiveSection }) => {
   }, [formData]);
 
   return (
-    <div className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+    <div id="contact" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
+      {/* Section Title */}
+      <div className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
+        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+      }`}>
+        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
+          Get In Touch
+        </h2>
+        <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4">
+          Ready to bring your ideas to life? Let's collaborate and create something amazing together
+        </p>
+        <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 mx-auto mt-8 rounded-full" />
+      </div>
+
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-        <div className="animate-fade-in-left order-2 lg:order-1">
-          <h2 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6 sm:mb-8 text-center lg:text-left">
+        <div 
+          ref={formRef}
+          className={`order-2 lg:order-1 transition-all duration-1000 ${
+            isFormVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+          }`}
+        >
+          <h3 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6 sm:mb-8 text-center lg:text-left">
             Let's work together
-          </h2>
+          </h3>
           <p className="text-gray-400 mb-8 sm:mb-12 text-center lg:text-left text-sm sm:text-base">
             I'm always interested in new opportunities and collaborations. Feel free to reach out!
           </p>
@@ -785,16 +957,25 @@ const ContactSection = ({ setActiveSection }) => {
           </form>
         </div>
         
-        <div className="flex flex-col justify-center space-y-6 sm:space-y-8 animate-fade-in-right order-1 lg:order-2">
+        <div 
+          ref={contactRef}
+          className={`flex flex-col justify-center space-y-6 sm:space-y-8 order-1 lg:order-2 transition-all duration-1000 delay-300 ${
+            isContactVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+          }`}
+        >
           {[
-            { icon: Phone, title: 'Phone', value: '03233036735', delay: '0s' },
-            { icon: Mail, title: 'Email', value: 'ghotamdulhani123@gmail.com', delay: '0.2s' },
-            { icon: MapPin, title: 'Address', value: 'Karachi, Pakistan', delay: '0.4s' }
-          ].map(({ icon: Icon, title, value, delay }, index) => (
+            { icon: Phone, title: 'Phone', value: '03233036735' },
+            { icon: Mail, title: 'Email', value: 'ghotamdulhani123@gmail.com' },
+            { icon: MapPin, title: 'Address', value: 'Karachi, Pakistan' }
+          ].map(({ icon: Icon, title, value }, index) => (
             <div 
               key={index} 
-              className="flex items-center gap-4 group animate-fade-in-up justify-center lg:justify-start"
-              style={{ animationDelay: delay }}
+              className={`flex items-center gap-4 group justify-center lg:justify-start transition-all duration-700 ${
+                isContactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+              }`}
+              style={{ 
+                transitionDelay: isContactVisible ? `${(index + 3) * 200}ms` : '0ms'
+              }}
             >
               <div className="w-12 h-12 rounded-xl bg-gradient-to-r from-emerald-400 to-teal-500 flex items-center justify-center transform transition-all duration-300 group-hover:scale-110 group-hover:rotate-6 flex-shrink-0">
                 <Icon size={20} className="text-black" />
@@ -848,6 +1029,16 @@ const Portfolio = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Mouse tracking for parallax effect
+  useEffect(() => {
+    const handleMouseMove = (e) => {
+      setMousePosition({ x: e.clientX, y: e.clientY });
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    return () => window.removeEventListener('mousemove', handleMouseMove);
+  }, []);
+
   // Counter animation
   const [counts, setCounts] = useState({
     experience: 0,
@@ -880,6 +1071,14 @@ const Portfolio = () => {
       });
     }
   }, [activeSection]);
+
+  // Smooth scroll behavior
+  useEffect(() => {
+    document.documentElement.style.scrollBehavior = 'smooth';
+    return () => {
+      document.documentElement.style.scrollBehavior = 'auto';
+    };
+  }, []);
 
   return (
     <div className="bg-black text-white min-h-screen relative overflow-x-hidden">
@@ -926,26 +1125,6 @@ const Portfolio = () => {
           }
         }
         
-        .animate-fade-in-up {
-          animation: fade-in-up 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-fade-in-left {
-          animation: fade-in-left 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-fade-in-right {
-          animation: fade-in-right 0.8s ease-out forwards;
-          opacity: 0;
-        }
-        
-        .animate-fade-in {
-          animation: fade-in 0.6s ease-out forwards;
-          opacity: 0;
-        }
-        
         @keyframes grid-move {
           0% { transform: translate(0, 0); }
           100% { transform: translate(50px, 50px); }
@@ -956,6 +1135,10 @@ const Portfolio = () => {
           .animate-fade-in-right {
             animation: fade-in-up 0.8s ease-out forwards;
           }
+        }
+
+        html {
+          scroll-behavior: smooth;
         }
       `}</style>
       
@@ -970,7 +1153,7 @@ const Portfolio = () => {
         }} />
       </div>
       
-      <div className="fixed top-4 sm:top-6 left-4 sm:left-6 z-40 animate-fade-in-left">
+      <div className="fixed top-4 sm:top-6 left-4 sm:left-6 z-40">
         <h1 className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
           Computer Science Student
         </h1>
@@ -979,12 +1162,45 @@ const Portfolio = () => {
       <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
       
       <main>
-        {activeSection === 'home' && <HomeSection isLoaded={isLoaded} mousePosition={mousePosition} counts={counts} />}
-        {activeSection === 'services' && <ServicesSection setActiveSection={setActiveSection} />}
-        {activeSection === 'resume' && <ResumeSection activeTab={activeTab} setActiveTab={setActiveTab} />}
-        {activeSection === 'work' && <WorkSection />}
-        {activeSection === 'contact' && <ContactSection setActiveSection={setActiveSection} />}
+        <HomeSection isLoaded={isLoaded} mousePosition={mousePosition} counts={counts} />
+        <ServicesSection setActiveSection={setActiveSection} />
+        <ResumeSection activeTab={activeTab} setActiveTab={setActiveTab} />
+        <WorkSection />
+        <ContactSection setActiveSection={setActiveSection} />
       </main>
+      
+      {/* Footer */}
+      <footer className="bg-gray-900/50 backdrop-blur-md border-t border-white/10 py-6 px-6 sm:px-8 lg:px-16">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
+          <div className="text-gray-400 text-sm text-center sm:text-left">
+            © 2025 Gotam Dulhani. Crafted with precision and passion.
+          </div>
+          <div className="flex gap-4">
+            <a
+              href="https://www.linkedin.com/in/gotam-dulhani-47b35b289"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-lg bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 border border-white/10"
+            >
+              <Linkedin size={18} />
+            </a>
+            <a
+              href="https://github.com/Gotam-Dulhani"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="w-10 h-10 rounded-lg bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 border border-white/10"
+            >
+              <Github size={18} />
+            </a>
+            <a
+              href="mailto:ghotamdulhani123@gmail.com"
+              className="w-10 h-10 rounded-lg bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-gray-400 hover:text-emerald-400 hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 border border-white/10"
+            >
+              <Mail size={18} />
+            </a>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 };
