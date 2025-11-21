@@ -187,7 +187,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mb-12">
-          <a href="Gotam-CV.pdf" download className="inline-block">
+          <a href="Gotam-Dulhani.pdf" download className="inline-block">
             <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
               <Download size={20} className="group-hover:animate-bounce" />
               DOWNLOAD CV
@@ -608,9 +608,9 @@ const WorkSection = () => {
       id: 1,
       title: 'Restaurant Management System',
       description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
-      tech: ['Assembly', 'System Programming', 'Database Management'],
+      tech: ['Assembly', 'System Programming'],
       image: '/RMS.webp',
-      github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
+      github: 'https://github.com/Gotam-Dulhani/Restaurant-Management-System'
     },
     {
       id: 2,
@@ -638,14 +638,6 @@ const WorkSection = () => {
     },
     {
       id: 5,
-      title: 'Space Shooter Game',
-      description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
-      tech: ['C++', 'OOP', 'Game Development'],
-      image: '/SSG.jpeg',
-      github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
-    },
-    {
-      id: 6,
       title: 'Swan Care Website',
       description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
       tech: ['HTML', 'CSS', 'JavaScript'],
@@ -653,7 +645,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Swan-Care'
     },
     {
-      id: 7,
+      id: 6,
       title: 'Expense Tracker',
       description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
       tech: ['C++', 'OOP', 'Data Structures'],
@@ -661,12 +653,36 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
     },
     {
-      id: 8,
+      id: 7,
       title: 'YouTube Video Summarizer',
       description: 'A Generative AI-based web app that summarizes YouTube videos using LLMs. It transcribes video content and delivers concise, readable summaries — built with integrated AI models.',
       tech: ['Gen AI', 'LLMs', 'JavaScript', 'YouTube API', 'HTML', 'CSS'],
       image: '/Summarizer.png',
-      github: 'https://github.com/Gotam-Dulhani/youtube-video-summarizer'
+      github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
+    },
+    {
+      id: 8,
+      title: 'Gotam-Portfolio',
+      description: '🚀 My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a “Hire Me” call-to-action for collaboration and freelance opportunities.',
+      tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
+      image: '/portfolio.jpg',
+      github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
+    },
+    {
+      id: 9,
+      title: 'FastTrack',
+      description: 'FastTrack – Student Carpool & Ride Sharing Platform A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
+      tech: ['React', 'Django', 'SQL', 'Databases'],
+      image: '/fasttrack.jpg',
+      github: 'https://github.com/Gotam-Dulhani/FastTrack'
+    },
+    {
+      id: 10,
+      title: 'AI-Resume-Builder',
+      description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and GEN AI.',
+      tech: ['React', 'Django', 'SQL', 'Databases'],
+      image: '/resume.jpg',
+      github: 'https://github.com/Gotam-Dulhani/FastTrack'
     }
   ];
 
@@ -964,7 +980,7 @@ const ContactSection = ({ setActiveSection }) => {
           }`}
         >
           {[
-            { icon: Phone, title: 'Phone', value: '03233036735' },
+            { icon: Phone, title: 'Phone', value: '03211792687' },
             { icon: Mail, title: 'Email', value: 'ghotamdulhani123@gmail.com' },
             { icon: MapPin, title: 'Address', value: 'Karachi, Pakistan' }
           ].map(({ icon: Icon, title, value }, index) => (
