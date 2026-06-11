@@ -305,9 +305,7 @@ const ServicesSection = ({ setActiveSection }) => {
 
       <div 
         ref={titleRef}
-        className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
-          isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-        }`}
+        className="text-center mb-16 sm:mb-20"
       >
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
           My Services
@@ -328,9 +326,7 @@ const ServicesSection = ({ setActiveSection }) => {
                   ? 'opacity-100 translate-y-0' 
                   : 'opacity-0 translate-y-20'
               }`}
-              style={{ 
-                transitionDelay: isVisible ? `${index * 150}ms` : '0ms'
-              }}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
               
@@ -608,9 +604,9 @@ const WorkSection = () => {
       id: 1,
       title: 'Restaurant Management System',
       description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
-      tech: ['Assembly', 'System Programming'],
+      tech: ['Assembly', 'System Programming', 'Database Management'],
       image: '/RMS.webp',
-      github: 'https://github.com/Gotam-Dulhani/Restaurant-Management-System'
+      github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
     },
     {
       id: 2,
@@ -632,12 +628,20 @@ const WorkSection = () => {
       id: 4,
       title: 'Candy Crush Clone',
       description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
-      tech: ['C++', 'Game Logic', 'openGL'],
+      tech: ['C++', 'Game Logic', 'OpenGL'],
       image: '/CandyCrush.webp',
       github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
     },
     {
       id: 5,
+      title: 'Space Shooter Game',
+      description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
+      tech: ['C++', 'OOP', 'SFML'],
+      image: '/SSG.jpeg',
+      github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
+    },
+    {
+      id: 6,
       title: 'Swan Care Website',
       description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
       tech: ['HTML', 'CSS', 'JavaScript'],
@@ -645,7 +649,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Swan-Care'
     },
     {
-      id: 6,
+      id: 7,
       title: 'Expense Tracker',
       description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
       tech: ['C++', 'OOP', 'Data Structures'],
@@ -653,17 +657,9 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
     },
     {
-      id: 7,
-      title: 'YouTube Video Summarizer',
-      description: 'A Generative AI-based web app that summarizes YouTube videos using LLMs. It transcribes video content and delivers concise, readable summaries — built with integrated AI models.',
-      tech: ['Gen AI', 'LLMs', 'JavaScript', 'YouTube API', 'HTML', 'CSS'],
-      image: '/Summarizer.png',
-      github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
-    },
-    {
       id: 8,
-      title: 'Gotam-Portfolio',
-      description: '🚀 My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a “Hire Me” call-to-action for collaboration and freelance opportunities.',
+      title: 'Gotam Portfolio',
+      description: '🚀 My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
       tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
       image: '/portfolio.jpg',
       github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
@@ -671,29 +667,115 @@ const WorkSection = () => {
     {
       id: 9,
       title: 'FastTrack',
-      description: 'FastTrack – Student Carpool & Ride Sharing Platform A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
+      description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
       tech: ['React', 'Django', 'SQL', 'Databases'],
       image: '/fasttrack.jpg',
       github: 'https://github.com/Gotam-Dulhani/FastTrack'
     },
     {
       id: 10,
-      title: 'AI-Resume-Builder',
-      description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and GEN AI.',
-      tech: ['React', 'Django', 'SQL', 'Databases'],
+      title: 'AI Resume Builder',
+      description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
+      tech: ['React', 'Django', 'SQL', 'Gen AI'],
       image: '/resume.jpg',
-      github: 'https://github.com/Gotam-Dulhani/FastTrack'
-    }
+      github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
+    },
+    {
+      id: 11,
+      title: 'Snake Game',
+      description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
+      tech: ['C++', 'OpenGL', 'Game Development'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Snake+Game',
+      github: 'https://github.com/Gotam-Dulhani/Snake-Game'
+    },
+    {
+      id: 12,
+      title: 'City Route Finder',
+      description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
+      tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=City+Route+Finder',
+      github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
+    },
+    {
+      id: 13,
+      title: 'Autonomous Ride Sharing Dispatch System',
+      description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
+      tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Ride+Sharing',
+      github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
+    },
+    {
+      id: 14,
+      title: 'Sentiment Analysis',
+      description: 'A full-stack Sentiment Analysis web app built with FastAPI, NLTK (VADER), and React (Vite). It analyzes text and classifies sentiment as Positive, Negative, or Neutral with polarity scores for real-time emotional insights.',
+      tech: ['FastAPI', 'NLTK', 'React', 'Python'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Sentiment+Analysis',
+      github: 'https://github.com/Gotam-Dulhani/Sentiment_Analysis'
+    },
+    {
+      id: 15,
+      title: 'Music Recommendation System',
+      description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
+      tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Music+Recommendation',
+      github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System'
+    },
+    {
+      id: 16,
+      title: 'Image Classification',
+      description: 'A full-stack Image Classification System using MobileNetV2 & TensorFlow. Drag-and-drop any image and get top-3 predictions with confidence scores. Built with Flask (backend) and React with Glassmorphism UI design.',
+      tech: ['TensorFlow', 'MobileNetV2', 'Flask', 'React'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Image+Classification',
+      github: 'https://github.com/Gotam-Dulhani/Image-Classification'
+    },
+    {
+      id: 17,
+      title: 'Nexus',
+      description: 'A full-stack collaboration platform connecting investors and entrepreneurs, powered by React + TypeScript and Node.js + Express + MongoDB. Features JWT authentication, role-based dashboards, and real-time interactions.',
+      tech: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Nexus',
+      github: 'https://github.com/Gotam-Dulhani/Nexus'
+    },
+    {
+      id: 18,
+      title: 'YouTube AI Summarizer',
+      description: 'A Chrome extension that uses AI to summarize YouTube videos instantly. Just click to get concise, readable summaries without watching the full video. Powered by Generative AI and Hugging Face models.',
+      tech: ['JavaScript', 'Chrome Extension', 'Gen AI', 'Hugging Face'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=YouTube+AI+Summarizer',
+      github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
+    },
+    {
+      id: 19,
+      title: 'FAST Sports Complex Management System',
+      description: 'A full-stack platform built with React, Node.js, and PostgreSQL to manage facilities, events, and equipment with secure CRUD operations and role-based dashboards. Features RESTful APIs, real-time data updates, and AI assistance powered by LangGraph, LangChain, and Groq (LLaMA 3).',
+      tech: ['React', 'Node.js', 'PostgreSQL', 'LangChain', 'FastAPI'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=FAST+Sports+Complex',
+      github: 'https://github.com/Gotam-Dulhani'
+    },
+    {
+      id: 20,
+      title: 'Chatbot for FAQs',
+      description: 'An intelligent FAQ Chatbot powered by NLP and machine learning. Built with Python, NLTK, and Scikit-Learn, it uses TF-IDF vectorization and cosine similarity to match user queries against a custom knowledge base for accurate, instant responses.',
+      tech: ['Python', 'NLTK', 'Scikit-Learn', 'NLP'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Chatbot+for+FAQs',
+      github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Chatbot-for-FAQs'
+    },
+    {
+      id: 21,
+      title: 'Object Detection and Tracking',
+      description: 'A high-performance real-time object detection and multi-object tracking system utilizing YOLOv8 and OpenCV. Detects 80+ classes with persistent IDs, confidence scores, and bounding boxes across frames for seamless live tracking.',
+      tech: ['Python', 'YOLOv8', 'OpenCV', 'Computer Vision'],
+      image: 'https://placehold.co/600x400/1f2937/10b981?text=Object+Detection',
+      github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Object-Detection-and-Tracking'
+    },
   ];
 
   return (
-    <div id="work" className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+<div id="work" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Section Title */}
-      <div 
+      <div
         ref={titleRef}
-        className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
-          isTitleVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-        }`}
+        className="text-center mb-16 sm:mb-20"
       >
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
           My Work
@@ -705,21 +787,13 @@ const WorkSection = () => {
       </div>
 
       {/* Projects Grid */}
-      <div ref={ref} className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 gap-12 sm:gap-16 lg:gap-20">
           {projects.map((project, index) => (
-            <div 
-              key={project.id} 
-              className={`flex flex-col lg:flex-row items-center gap-8 lg:gap-12 group transition-all duration-1000 ${
-                index % 2 === 1 ? 'lg:flex-row-reverse' : ''
-              } ${
-                isVisible 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-20'
-              }`}
-              style={{ 
-                transitionDelay: isVisible ? `${index * 150}ms` : '0ms'
-              }}
+            <div
+              key={project.id}
+              className="flex flex-col lg:flex-row items-center gap-8 lg:gap-12 group transition-all duration-1000"
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="flex-1 text-center lg:text-left">
                 <div className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-4 group-hover:scale-110 transition-transform duration-300">
@@ -757,7 +831,6 @@ const WorkSection = () => {
               <div className="flex-1 w-full">
                 <div className="bg-gradient-to-br from-gray-800/50 to-gray-900/50 backdrop-blur-sm p-3 sm:p-4 rounded-2xl border border-white/10 group-hover:border-emerald-400/30 transition-all duration-500 transform group-hover:scale-105">
                   <div className="relative overflow-hidden rounded-xl">
-                    {/* Placeholder for missing images */}
                     <div className="w-full h-48 sm:h-56 lg:h-64 bg-gradient-to-br from-gray-700 to-gray-800 rounded-xl flex items-center justify-center relative overflow-hidden group-hover:scale-110 transition-transform duration-500">
                       <img
                         src={project.image}
@@ -780,8 +853,6 @@ const WorkSection = () => {
           ))}
         </div>
       </div>
-
-
     </div>
   );
 };
@@ -1189,7 +1260,7 @@ const Portfolio = () => {
       <footer className="bg-gray-900/50 backdrop-blur-md border-t border-white/10 py-6 px-6 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
           <div className="text-gray-400 text-sm text-center sm:text-left">
-            © 2025 Gotam Dulhani. Crafted with precision and passion.
+            © 2026 Gotam Dulhani. Crafted with precision and passion.
           </div>
           <div className="flex gap-4">
             <a
