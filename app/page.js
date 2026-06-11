@@ -187,7 +187,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mb-12">
-          <a href="Gotam-Dulhani.pdf" download className="inline-block">
+          <a href="Gotam-CV.pdf" download className="inline-block">
             <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
               <Download size={20} className="group-hover:animate-bounce" />
               DOWNLOAD CV
