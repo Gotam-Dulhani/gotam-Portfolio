@@ -86,17 +86,15 @@ const Navigation = ({ activeSection, setActiveSection }) => {
             <button
               key={section}
               onClick={() => scrollToSection(section)}
-              className={`text-sm font-medium transition-all duration-300 relative group ${
-                activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
-              }`}
+              className={`text-sm font-medium transition-all duration-300 relative group ${activeSection === section ? 'text-emerald-400' : 'text-gray-300 hover:text-emerald-400'
+                }`}
             >
               {section.charAt(0).toUpperCase() + section.slice(1)}
-              <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 transform origin-left transition-transform duration-300 ${
-                activeSection === section ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
-              }`} />
+              <span className={`absolute -bottom-1 left-0 w-full h-0.5 bg-emerald-400 transform origin-left transition-transform duration-300 ${activeSection === section ? 'scale-x-100' : 'scale-x-0 group-hover:scale-x-100'
+                }`} />
             </button>
           ))}
-          <button 
+          <button
             onClick={() => scrollToSection('contact')}
             className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-2 rounded-xl text-sm font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105"
           >
@@ -122,14 +120,13 @@ const Navigation = ({ activeSection, setActiveSection }) => {
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
-                  className={`text-2xl font-medium transition-all duration-300 ${
-                    activeSection === section ? 'text-emerald-400' : 'text-white hover:text-emerald-400'
-                  }`}
+                  className={`text-2xl font-medium transition-all duration-300 ${activeSection === section ? 'text-emerald-400' : 'text-white hover:text-emerald-400'
+                    }`}
                 >
                   {section.charAt(0).toUpperCase() + section.slice(1)}
                 </button>
               ))}
-              <button 
+              <button
                 onClick={() => scrollToSection('contact')}
                 className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-8 py-3 rounded-xl text-lg font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300"
               >
@@ -147,15 +144,14 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
   const [ref, isVisible] = useScrollAnimation(0.3);
 
   return (
-    <div 
+    <div
       id="home"
       ref={ref}
-      className={`min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 sm:px-8 lg:px-16 py-20 lg:py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-      }`}
+      className={`min-h-screen flex flex-col lg:flex-row items-center justify-between px-6 sm:px-8 lg:px-16 py-20 lg:py-20 relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+        }`}
     >
       <div className="absolute inset-0 pointer-events-none">
-        <div 
+        <div
           className="absolute w-64 sm:w-96 h-64 sm:h-96 bg-gradient-to-r from-emerald-500/10 to-teal-500/10 rounded-full blur-3xl"
           style={{
             transform: `translate(${mousePosition.x * 0.02}px, ${mousePosition.y * 0.02}px)`,
@@ -163,7 +159,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
             left: '60%'
           }}
         />
-        <div 
+        <div
           className="absolute w-48 sm:w-64 h-48 sm:h-64 bg-gradient-to-r from-blue-500/10 to-purple-500/10 rounded-full blur-3xl"
           style={{
             transform: `translate(${mousePosition.x * -0.01}px, ${mousePosition.y * -0.01}px)`,
@@ -173,9 +169,8 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
         />
       </div>
 
-      <div className={`flex-1 max-w-2xl mb-12 lg:mb-0 transform transition-all duration-1000 delay-300 ${
-        isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
-      }`}>
+      <div className={`flex-1 max-w-2xl mb-12 lg:mb-0 transform transition-all duration-1000 delay-300 ${isVisible ? 'translate-y-0 opacity-100' : 'translate-y-8 opacity-0'
+        }`}>
         <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-2 text-center lg:text-left">
           Hello I'm
         </h1>
@@ -183,9 +178,9 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
           Gotam Dulhani
         </h1>
         <p className="text-gray-300 text-base sm:text-lg mb-8 leading-relaxed text-center lg:text-left">
-          Computer Science undergraduate with a solid foundation in programming, web development, and object-oriented design. Passionate about building intelligent systems and immersive user experiences through AI and Game Development.
+          Third-year Computer Science student at FAST-NUCES with interests in AI, machine learning, and full-stack development. Experienced in building intelligent, data-driven applications through multiple internships.
         </p>
-        
+
         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-6 mb-12">
           <a href="Gotam-Dulhani.pdf" download className="inline-block">
             <button className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 flex items-center gap-2 group">
@@ -193,7 +188,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
               DOWNLOAD CV
             </button>
           </a>
-          
+
           <div className="flex gap-4">
             {[
               { icon: Github, href: "https://github.com/Gotam-Dulhani" },
@@ -212,7 +207,7 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
             ))}
           </div>
         </div>
-        
+
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 lg:gap-8 text-center">
           {[
             { key: 'experience', label: 'Years of\nexperience' },
@@ -229,10 +224,9 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
           ))}
         </div>
       </div>
-      
-      <div className={`flex-1 flex justify-center items-center transform transition-all duration-1000 delay-500 ${
-        isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
-      }`}>
+
+      <div className={`flex-1 flex justify-center items-center transform transition-all duration-1000 delay-500 ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-8 opacity-0'
+        }`}>
         <div className="relative group">
           <div className="w-[250px] sm:w-[300px] h-[333px] sm:h-[400px] bg-gradient-to-br from-gray-800 to-gray-900 rounded-2xl shadow-2xl relative overflow-hidden border border-white/10 transform transition-all duration-500 group-hover:scale-105">
             <div className="absolute inset-0 bg-gradient-to-br from-emerald-400/20 to-teal-500/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
@@ -303,7 +297,7 @@ const ServicesSection = ({ setActiveSection }) => {
         <div className="absolute w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl bottom-20 left-10 animate-pulse" style={{ animationDelay: '1s' }} />
       </div>
 
-      <div 
+      <div
         ref={titleRef}
         className="text-center mb-16 sm:mb-20"
       >
@@ -321,15 +315,14 @@ const ServicesSection = ({ setActiveSection }) => {
           {services.map((service, index) => (
             <div
               key={index}
-              className={`group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 overflow-hidden min-h-[300px] sm:min-h-[320px] flex flex-col ${
-                isVisible 
-                  ? 'opacity-100 translate-y-0' 
-                  : 'opacity-0 translate-y-20'
-              }`}
+              className={`group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 overflow-hidden min-h-[300px] sm:min-h-[320px] flex flex-col ${isVisible
+                ? 'opacity-100 translate-y-0'
+                : 'opacity-0 translate-y-20'
+                }`}
               style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-              
+
               <div className="mb-6 relative z-10">
                 <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-400/10 to-teal-500/10 flex items-center justify-center border border-emerald-400/20 group-hover:border-emerald-400/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
                   <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
@@ -361,9 +354,8 @@ const ServicesSection = ({ setActiveSection }) => {
           ))}
         </div>
 
-        <div className={`text-center mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${
-          isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-        }`}>
+        <div className={`text-center mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+          }`}>
           <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto">
             <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
               Ready to bring your ideas to life?
@@ -393,37 +385,73 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'C++', icon: '⚡' },
     { name: 'Python', icon: '🐍' },
     { name: 'JavaScript', icon: '🟨' },
+    { name: 'TypeScript', icon: '📘' },
     { name: 'React', icon: '⚛️' },
-    { name: 'HTML', icon: '🌍' },
-    { name: 'CSS', icon: '🎨' },
-    { name: 'SFML', icon: '🎮' },
-    { name: 'Bootstrap', icon: '📱' }
+    { name: 'Next.js', icon: '⚛️' },
+    { name: 'Vite', icon: '⚡' },
+    { name: 'TailwindCSS', icon: '💨' },
+    { name: 'Responsive Design', icon: '📱' },
+    { name: 'Node.js', icon: '🟢' },
+    { name: 'Express.js', icon: '🚂' },
+    { name: 'Flask', icon: '🥣' },
+    { name: 'FastAPI', icon: '🚀' },
+    { name: 'JWT Authentication', icon: '🔑' },
+    { name: 'Socket.IO', icon: '🔌' },
+    { name: 'Firebase', icon: '🔥' },
+    { name: 'Supabase', icon: '🔺' },
+    { name: 'MySQL', icon: '🐬' },
+    { name: 'PostgreSQL', icon: '🐘' },
+    { name: 'MongoDB', icon: '🍃' },
+    { name: 'Firebase Realtime Database', icon: '📡' },
+    { name: 'SQL', icon: '🗄️' },
+    { name: 'HTML5', icon: '🌐' },
+    { name: 'CSS3', icon: '🎨' },
+    { name: 'TensorFlow', icon: '🤖' },
+    { name: 'Keras', icon: '🧠' },
+    { name: 'Scikit-Learn', icon: '📚' },
+    { name: 'NLTK', icon: '📖' },
+    { name: 'YOLOv8', icon: '🦁' },
+    { name: 'OpenAI API', icon: '💬' },
+    { name: 'Hugging Face', icon: '🤗' },
+    { name: 'TF-IDF', icon: '📊' },
+    { name: 'Cosine Similarity', icon: '🔺' },
+    { name: 'Git', icon: '🌱' },
+    { name: 'GitHub', icon: '🐙' },
+    { name: 'Docker', icon: '🐳' },
+    { name: 'Vercel', icon: '🚀' },
+    { name: 'Render', icon: '💡' },
+    { name: 'Streamlit', icon: '📊' },
+    { name: 'Gradio', icon: '🖥️' },
+    { name: 'Stripe', icon: '💳' },
+    { name: 'Swagger', icon: '📝' },
+    { name: 'n8n', icon: '🧩' },
+    { name: 'CI/CD Pipeline', icon: '⚙️' },
+    { name: 'Machine Learning', icon: '🤖' },
+    { name: 'Generative AI', icon: '🧠' }
   ];
 
   return (
     <div id="resume" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-16">
-        <div 
+        <div
           ref={sidebarRef}
-          className={`w-full lg:w-80 transition-all duration-1000 ${
-            isSidebarVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
-          }`}
+          className={`w-full lg:w-80 transition-all duration-1000 ${isSidebarVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
         >
           <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6 sm:mb-8 text-center lg:text-left">Why hire me?</h2>
           <p className="text-gray-400 mb-8 sm:mb-12 text-center lg:text-left text-sm sm:text-base">
             I bring passion, dedication, and fresh perspectives to every project. With strong academic foundation and hands-on experience in multiple technologies.
           </p>
-          
+
           <div className="grid grid-cols-2 lg:grid-cols-1 gap-4">
             {['experience', 'education', 'skills', 'about'].map((tab, index) => (
               <button
                 key={tab}
                 onClick={() => setActiveTab(tab)}
-                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] text-sm sm:text-base ${
-                  activeTab === tab 
-                    ? 'bg-gradient-to-r from-emerald-400 to-teal-500 text-black shadow-lg shadow-emerald-400/25' 
-                    : 'bg-gray-800/50 backdrop-blur-sm text-white hover:bg-gray-700/50 border border-white/10'
-                }`}
+                className={`w-full py-3 sm:py-4 px-4 sm:px-6 rounded-xl text-left transition-all duration-300 transform hover:scale-[1.02] text-sm sm:text-base ${activeTab === tab
+                  ? 'bg-gradient-to-r from-emerald-400 to-teal-500 text-black shadow-lg shadow-emerald-400/25'
+                  : 'bg-gray-800/50 backdrop-blur-sm text-white hover:bg-gray-700/50 border border-white/10'
+                  }`}
               >
                 {tab.charAt(0).toUpperCase() + tab.slice(1)}
               </button>
@@ -431,11 +459,10 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
           </div>
         </div>
 
-        <div 
+        <div
           ref={contentRef}
-          className={`flex-1 transition-all duration-1000 delay-300 ${
-            isContentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
-          }`}
+          className={`flex-1 transition-all duration-1000 delay-300 ${isContentVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+            }`}
         >
           {activeTab === 'experience' && (
             <div>
@@ -446,16 +473,28 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
               <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {[
                   {
-                    period: '2023 - Present',
-                    title: 'Student Developer',
-                    company: 'FAST - NUCES',
-                    description: 'Developing various projects using C++, Python, and web technologies. Focus on game development and AI.'
+                    period: 'Aug 2025 – May 2026',
+                    title: 'Lab Demonstrator (Programming Fundamentals)',
+                    company: 'FAST-NUCES, Karachi',
+                    description: 'Conducted Programming Fundamentals labs, guiding students in C/C++ programming, debugging, and algorithm design.'
                   },
                   {
-                    period: '2022 - 2023',
-                    title: 'Programming Enthusiast',
-                    company: 'Self-taught',
-                    description: 'Started programming journey with C++ and exploring various programming concepts and technologies.'
+                    period: 'Feb 2025 – May 2025',
+                    title: 'Teaching Assistant (Digital Logic Design)',
+                    company: 'FAST-NUCES, Karachi',
+                    description: 'Assisted students with digital logic design, Boolean algebra, and circuit concepts while evaluating assignments and quizzes'
+                  },
+                  {
+                    period: 'March 2026 – April 2026',
+                    title: 'AI Intern (Remote)',
+                    company: 'Apexcify Technologies',
+                    description: 'Completed applied AI tasks covering NLP, image classification, and real-time object detection and tracking. Worked with Python, TensorFlow, OpenCV, NLTK, and scikit-learn across multiple projects.'
+                  },
+                  {
+                    period: 'Feb 2026 – March 2026',
+                    title: 'Full‑Stack Development Intern (Remote)',
+                    company: 'Developerhub Corporation',
+                    description: 'Worked on full‑stack web applications using modern JavaScript frameworks, REST APIs, and cloud‑based authentication. Gained exposure to WebSockets, payment gateway integration, and cloud deployment workflows.'
                   }
                 ].map((exp, index) => (
                   <div key={index} className="border-l-4 border-emerald-400 pl-6 group">
@@ -527,8 +566,8 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
               </p>
               <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
                 {skills.map((skill, index) => (
-                  <div 
-                    key={index} 
+                  <div
+                    key={index}
                     className="bg-gray-800/50 backdrop-blur-sm p-4 sm:p-6 rounded-xl text-center hover:bg-gray-700/50 transition-all duration-300 transform hover:scale-110 hover:-translate-y-2 border border-white/10 group"
                   >
                     <div className="text-2xl sm:text-4xl mb-3 sm:mb-4 group-hover:animate-bounce">{skill.icon}</div>
@@ -771,7 +810,7 @@ const WorkSection = () => {
   ];
 
   return (
-<div id="work" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
+    <div id="work" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900">
       {/* Section Title */}
       <div
         ref={titleRef}
@@ -890,7 +929,7 @@ const ContactSection = ({ setActiveSection }) => {
       // Initialize EmailJS with your public key
       if (typeof window !== 'undefined' && window.emailjs) {
         window.emailjs.init('L7z1jG6fb3MqQp55d');
-        
+
         // Send email using EmailJS
         const result = await window.emailjs.send(
           'service_yp94s7j',
@@ -928,9 +967,8 @@ const ContactSection = ({ setActiveSection }) => {
   return (
     <div id="contact" ref={ref} className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-black via-gray-900 to-black">
       {/* Section Title */}
-      <div className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${
-        isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-      }`}>
+      <div className={`text-center mb-16 sm:mb-20 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
+        }`}>
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
           Get In Touch
         </h2>
@@ -941,11 +979,10 @@ const ContactSection = ({ setActiveSection }) => {
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16">
-        <div 
+        <div
           ref={formRef}
-          className={`order-2 lg:order-1 transition-all duration-1000 ${
-            isFormVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
-          }`}
+          className={`order-2 lg:order-1 transition-all duration-1000 ${isFormVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-20'
+            }`}
         >
           <h3 className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6 sm:mb-8 text-center lg:text-left">
             Let's work together
@@ -953,7 +990,7 @@ const ContactSection = ({ setActiveSection }) => {
           <p className="text-gray-400 mb-8 sm:mb-12 text-center lg:text-left text-sm sm:text-base">
             I'm always interested in new opportunities and collaborations. Feel free to reach out!
           </p>
-          
+
           <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <input
@@ -1020,7 +1057,7 @@ const ContactSection = ({ setActiveSection }) => {
                 Message sent successfully! I'll get back to you soon.
               </div>
             )}
-            
+
             {submitStatus === 'error' && (
               <div className="p-4 bg-red-400/10 border border-red-400/20 rounded-xl text-red-400 text-center text-sm sm:text-base">
                 Failed to send message. Please try again or contact me directly.
@@ -1043,24 +1080,22 @@ const ContactSection = ({ setActiveSection }) => {
             </button>
           </form>
         </div>
-        
-        <div 
+
+        <div
           ref={contactRef}
-          className={`flex flex-col justify-center space-y-6 sm:space-y-8 order-1 lg:order-2 transition-all duration-1000 delay-300 ${
-            isContactVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
-          }`}
+          className={`flex flex-col justify-center space-y-6 sm:space-y-8 order-1 lg:order-2 transition-all duration-1000 delay-300 ${isContactVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-20'
+            }`}
         >
           {[
-            { icon: Phone, title: 'Phone', value: '03211792687' },
+            { icon: Phone, title: 'Phone', value: '03233036735' },
             { icon: Mail, title: 'Email', value: 'ghotamdulhani123@gmail.com' },
             { icon: MapPin, title: 'Address', value: 'Karachi, Pakistan' }
           ].map(({ icon: Icon, title, value }, index) => (
-            <div 
-              key={index} 
-              className={`flex items-center gap-4 group justify-center lg:justify-start transition-all duration-700 ${
-                isContactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
-              }`}
-              style={{ 
+            <div
+              key={index}
+              className={`flex items-center gap-4 group justify-center lg:justify-start transition-all duration-700 ${isContactVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
+                }`}
+              style={{
                 transitionDelay: isContactVisible ? `${(index + 3) * 200}ms` : '0ms'
               }}
             >
@@ -1145,7 +1180,7 @@ const Portfolio = () => {
         const target = targets[key];
         const step = target / steps;
         let current = 0;
-        
+
         const timer = setInterval(() => {
           current += step;
           if (current >= target) {
@@ -1228,7 +1263,7 @@ const Portfolio = () => {
           scroll-behavior: smooth;
         }
       `}</style>
-      
+
       <div className="fixed inset-0 pointer-events-none opacity-5">
         <div className="absolute inset-0" style={{
           backgroundImage: `
@@ -1239,15 +1274,15 @@ const Portfolio = () => {
           animation: 'grid-move 20s linear infinite'
         }} />
       </div>
-      
+
       <div className="fixed top-4 sm:top-6 left-4 sm:left-6 z-40">
         <h1 className="text-lg sm:text-xl lg:text-2xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">
           Computer Science Student
         </h1>
       </div>
-      
+
       <Navigation activeSection={activeSection} setActiveSection={setActiveSection} />
-      
+
       <main>
         <HomeSection isLoaded={isLoaded} mousePosition={mousePosition} counts={counts} />
         <ServicesSection setActiveSection={setActiveSection} />
@@ -1255,7 +1290,7 @@ const Portfolio = () => {
         <WorkSection />
         <ContactSection setActiveSection={setActiveSection} />
       </main>
-      
+
       {/* Footer */}
       <footer className="bg-gray-900/50 backdrop-blur-md border-t border-white/10 py-6 px-6 sm:px-8 lg:px-16">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-4">
