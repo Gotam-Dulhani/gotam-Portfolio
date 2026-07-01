@@ -50,7 +50,7 @@ const Navigation = ({ activeSection, setActiveSection }) => {
   // Auto-detect active section based on scroll
   useEffect(() => {
     const handleScroll = () => {
-      const sections = ['home', 'services', 'resume', 'work', 'contact'];
+      const sections = ['home', 'resume', 'work', 'contact'];
       const scrollPosition = window.scrollY + 200;
 
       for (let i = sections.length - 1; i >= 0; i--) {
@@ -82,7 +82,7 @@ const Navigation = ({ activeSection, setActiveSection }) => {
       {/* Desktop Navigation */}
       <nav className="fixed top-0 right-0 z-50 p-6 hidden lg:block">
         <div className="flex items-center gap-8 bg-black/20 backdrop-blur-md rounded-2xl px-6 py-3 border border-white/10">
-          {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
+          {['home', 'resume', 'work', 'contact'].map((section) => (
             <button
               key={section}
               onClick={() => scrollToSection(section)}
@@ -116,7 +116,7 @@ const Navigation = ({ activeSection, setActiveSection }) => {
         {isMobileMenuOpen && (
           <div className="fixed inset-0 z-40 bg-black/90 backdrop-blur-md">
             <div className="flex flex-col items-center justify-center h-full space-y-8">
-              {['home', 'services', 'resume', 'work', 'contact'].map((section) => (
+              {['home', 'resume', 'work', 'contact'].map((section) => (
                 <button
                   key={section}
                   onClick={() => scrollToSection(section)}
@@ -243,138 +243,8 @@ const HomeSection = ({ isLoaded, mousePosition, counts }) => {
   );
 };
 
-const ServicesSection = ({ setActiveSection }) => {
-  const [ref, isVisible] = useScrollAnimation(0.2);
-  const [titleRef, isTitleVisible] = useScrollAnimation(0.3);
 
-  const services = [
-    {
-      id: '01',
-      title: 'Web Development',
-      description: 'Creating modern, responsive websites using HTML, CSS, JavaScript, and frameworks like React.',
-    },
-    {
-      id: '02',
-      title: 'Generative AI',
-      description: 'Building intelligent applications using Generative AI and large language models to automate tasks and generate human-like content.',
-    },
-    {
-      id: '03',
-      title: 'Graphic Design',
-      description: 'Creating visually appealing designs and layouts for digital and print media, including banners, posters, and social media assets.',
-    },
-    {
-      id: '04',
-      title: 'Game Development',
-      description: 'Designing and building interactive games using C++ and SFML, focusing on engaging mechanics, graphics, and user experience.',
-    },
-    {
-      id: '05',
-      title: 'Machine Learning',
-      description: 'Implementing data-driven solutions using machine learning algorithms to solve real-world problems and extract insights from data.',
-    },
-    {
-      id: '06',
-      title: 'Microsoft Office Skills',
-      description: 'Proficient in Microsoft Word, Excel, and PowerPoint with strong skills in document formatting, data analysis, and professional presentations.',
-    }
-  ];
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({
-        behavior: 'smooth',
-        block: 'start',
-      });
-    }
-  };
-
-  return (
-    <div id="services" className="min-h-screen px-6 sm:px-8 lg:px-16 py-20 bg-gradient-to-br from-gray-900 via-black to-gray-900 relative overflow-hidden">
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-gradient-to-r from-emerald-500/5 to-teal-500/5 rounded-full blur-3xl top-10 right-10 animate-pulse" />
-        <div className="absolute w-[200px] sm:w-[300px] h-[200px] sm:h-[300px] bg-gradient-to-r from-blue-500/5 to-purple-500/5 rounded-full blur-3xl bottom-20 left-10 animate-pulse" style={{ animationDelay: '1s' }} />
-      </div>
-
-      <div
-        ref={titleRef}
-        className="text-center mb-16 sm:mb-20"
-      >
-        <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-6">
-          My Services
-        </h2>
-        <p className="text-gray-400 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed px-4">
-          Transforming ideas into digital reality with cutting-edge technologies and creative solutions
-        </p>
-        <div className="w-24 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 mx-auto mt-8 rounded-full" />
-      </div>
-
-      <div className="max-w-7xl mx-auto" ref={ref}>
-        <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8 lg:gap-10">
-          {services.map((service, index) => (
-            <div
-              key={index}
-              className={`group relative bg-gradient-to-br from-gray-800/30 to-gray-900/30 backdrop-blur-xl p-6 lg:p-8 rounded-2xl border border-white/10 hover:border-emerald-400/30 transition-all duration-700 transform hover:scale-105 hover:-translate-y-2 overflow-hidden min-h-[300px] sm:min-h-[320px] flex flex-col ${isVisible
-                ? 'opacity-100 translate-y-0'
-                : 'opacity-0 translate-y-20'
-                }`}
-              style={{ transitionDelay: `${index * 150}ms` }}
-            >
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-teal-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl" />
-
-              <div className="mb-6 relative z-10">
-                <div className="w-16 h-16 rounded-xl bg-gradient-to-br from-emerald-400/10 to-teal-500/10 flex items-center justify-center border border-emerald-400/20 group-hover:border-emerald-400/40 transition-all duration-300 group-hover:scale-110 group-hover:rotate-3">
-                  <div className="w-8 h-8 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-lg flex items-center justify-center">
-                    <span className="text-black font-bold text-sm">{service.id}</span>
-                  </div>
-                </div>
-              </div>
-
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-4 group-hover:text-emerald-400 transition-all duration-300 leading-tight">
-                {service.title}
-              </h3>
-
-              <p className="text-gray-400 text-sm sm:text-base mb-6 leading-relaxed group-hover:text-gray-300 transition-colors duration-300 flex-grow">
-                {service.description}
-              </p>
-
-              <div className="flex items-center justify-between mt-auto">
-                <button className="text-emerald-400 font-medium hover:text-emerald-300 transition-colors duration-300 group-hover:translate-x-1 text-sm sm:text-base">
-                  Learn More
-                </button>
-                <div className="w-10 h-10 rounded-full bg-white/5 backdrop-blur-sm flex items-center justify-center group-hover:bg-emerald-400 group-hover:text-black transition-all duration-300 transform group-hover:scale-110 group-hover:rotate-45 border border-white/10 flex-shrink-0">
-                  <ArrowDownRight size={16} />
-                </div>
-              </div>
-
-              <div className="absolute bottom-0 left-0 w-0 h-1 bg-gradient-to-r from-emerald-400 to-teal-500 group-hover:w-full transition-all duration-500 rounded-full" />
-              <div className="absolute top-4 right-4 w-2 h-2 bg-emerald-400/30 rounded-full group-hover:bg-emerald-400 group-hover:scale-150 transition-all duration-300" />
-            </div>
-          ))}
-        </div>
-
-        <div className={`text-center mt-16 sm:mt-20 transition-all duration-1000 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-20'
-          }`}>
-          <div className="bg-gradient-to-r from-gray-800/50 to-gray-900/50 backdrop-blur-xl p-6 sm:p-8 rounded-2xl border border-white/10 max-w-2xl mx-auto">
-            <h3 className="text-xl sm:text-2xl font-bold text-white mb-4">
-              Ready to bring your ideas to life?
-            </h3>
-            <p className="text-gray-400 mb-6 text-sm sm:text-base">
-              Let's collaborate and create something amazing together
-            </p>
-            <button
-              onClick={() => scrollToSection('contact')}
-              className="bg-gradient-to-r from-emerald-400 to-teal-500 text-black px-6 sm:px-8 py-3 rounded-xl font-medium hover:shadow-lg hover:shadow-emerald-400/25 transition-all duration-300 transform hover:scale-105 hover:-translate-y-1"
-            >
-              Get In Touch
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-};
 
 const ResumeSection = ({ activeTab, setActiveTab }) => {
   const [ref, isVisible] = useScrollAnimation(0.2);
@@ -387,7 +257,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'JavaScript', icon: '🟨' },
     { name: 'TypeScript', icon: '📘' },
     { name: 'React', icon: '⚛️' },
-    { name: 'Next.js', icon: '⚛️' },
+    { name: 'Next.js (App Router)', icon: '⚛️' },
     { name: 'Vite', icon: '⚡' },
     { name: 'TailwindCSS', icon: '💨' },
     { name: 'Responsive Design', icon: '📱' },
@@ -395,6 +265,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'Express.js', icon: '🚂' },
     { name: 'Flask', icon: '🥣' },
     { name: 'FastAPI', icon: '🚀' },
+    { name: 'RESTful APIs', icon: '🌐' },
     { name: 'JWT Authentication', icon: '🔑' },
     { name: 'Socket.IO', icon: '🔌' },
     { name: 'Firebase', icon: '🔥' },
@@ -402,6 +273,7 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'MySQL', icon: '🐬' },
     { name: 'PostgreSQL', icon: '🐘' },
     { name: 'MongoDB', icon: '🍃' },
+    { name: 'SQLite', icon: '💾' },
     { name: 'Firebase Realtime Database', icon: '📡' },
     { name: 'SQL', icon: '🗄️' },
     { name: 'HTML5', icon: '🌐' },
@@ -411,8 +283,23 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'Scikit-Learn', icon: '📚' },
     { name: 'NLTK', icon: '📖' },
     { name: 'YOLOv8', icon: '🦁' },
+    { name: 'Computer Vision', icon: '👁️' },
+    { name: 'Natural Language Processing (NLP)', icon: '💬' },
     { name: 'OpenAI API', icon: '💬' },
+    { name: 'Google Gemini API', icon: '♊' },
     { name: 'Hugging Face', icon: '🤗' },
+    { name: 'LangChain', icon: '🦜' },
+    { name: 'LangGraph', icon: '🕸️' },
+    { name: 'Generative AI', icon: '🧠' },
+    { name: 'Agentic AI', icon: '🤖' },
+    { name: 'AI Agents', icon: '🤖' },
+    { name: 'Multi-Agent Systems', icon: '👥' },
+    { name: 'Prompt Engineering', icon: '✍️' },
+    { name: 'Retrieval-Augmented Generation (RAG)', icon: '🔍' },
+    { name: 'Tool Calling', icon: '🛠️' },
+    { name: 'Function Calling', icon: '📞' },
+    { name: 'FAISS', icon: '🗄️' },
+    { name: 'Embeddings', icon: '🔢' },
     { name: 'TF-IDF', icon: '📊' },
     { name: 'Cosine Similarity', icon: '🔺' },
     { name: 'Git', icon: '🌱' },
@@ -425,9 +312,8 @@ const ResumeSection = ({ activeTab, setActiveTab }) => {
     { name: 'Stripe', icon: '💳' },
     { name: 'Swagger', icon: '📝' },
     { name: 'n8n', icon: '🧩' },
-    { name: 'CI/CD Pipeline', icon: '⚙️' },
-    { name: 'Machine Learning', icon: '🤖' },
-    { name: 'Generative AI', icon: '🧠' }
+    { name: 'CI/CD Pipelines', icon: '⚙️' },
+    { name: 'Machine Learning', icon: '🤖' }
   ];
 
   return (
@@ -641,6 +527,22 @@ const WorkSection = () => {
   const projects = [
     {
       id: 1,
+      title: 'AI-Driven Multi-Utility Chatbot',
+      description: 'Built a production-ready AI chatbot using LangGraph and LangChain with Retrieval-Augmented Generation (RAG), persistent multi-thread conversations, PDF semantic search, and FAISS vector retrieval. Integrated OpenAI and Google Gemini models with web search, stock market lookup, calculator, and document retrieval tools while developing a Streamlit interface with real-time response streaming and persistent chat history.',
+      tech: ['LangGraph', 'LangChain', 'OpenAI', 'Google Gemini', 'Streamlit', 'FAISS'],
+      image: '/chatbot_project.png',
+      github: 'https://github.com/Gotam-Dulhani'
+    },
+    {
+      id: 2,
+      title: 'Agentic AI Blog Writer',
+      description: 'Developed an agentic AI blog-writing application using LangGraph and LangChain to orchestrate multi-step workflows for research, content generation, and refinement. Integrated OpenAI, Google Gemini, and Hugging Face models with prompt engineering and Retrieval-Augmented Generation (RAG) to generate context-aware blog content through an interactive Streamlit interface.',
+      tech: ['LangGraph', 'LangChain', 'OpenAI', 'Google Gemini', 'Hugging Face', 'Streamlit'],
+      image: '/blog_writer_project.png',
+      github: 'https://github.com/Gotam-Dulhani'
+    },
+    {
+      id: 3,
       title: 'Restaurant Management System',
       description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
       tech: ['Assembly', 'System Programming', 'Database Management'],
@@ -648,7 +550,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
     },
     {
-      id: 2,
+      id: 4,
       title: 'Clothing Website',
       description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
       tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
@@ -656,7 +558,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Clothing-Website'
     },
     {
-      id: 3,
+      id: 5,
       title: 'Centipede Game',
       description: 'A modern recreation of the classic Centipede arcade game using C++ and SFML. Features smooth movement, enemy spawning, collision detection, and score tracking — all built with an object-oriented approach for a retro yet responsive gameplay experience.',
       tech: ['C++', 'SFML', 'Game Development'],
@@ -664,7 +566,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Centipede-Game'
     },
     {
-      id: 4,
+      id: 6,
       title: 'Candy Crush Clone',
       description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
       tech: ['C++', 'Game Logic', 'OpenGL'],
@@ -672,7 +574,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
     },
     {
-      id: 5,
+      id: 7,
       title: 'Space Shooter Game',
       description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
       tech: ['C++', 'OOP', 'SFML'],
@@ -680,7 +582,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
     },
     {
-      id: 6,
+      id: 8,
       title: 'Swan Care Website',
       description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
       tech: ['HTML', 'CSS', 'JavaScript'],
@@ -688,7 +590,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Swan-Care'
     },
     {
-      id: 7,
+      id: 9,
       title: 'Expense Tracker',
       description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
       tech: ['C++', 'OOP', 'Data Structures'],
@@ -696,7 +598,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
     },
     {
-      id: 8,
+      id: 10,
       title: 'Gotam Portfolio',
       description: '🚀 My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
       tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
@@ -704,7 +606,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
     },
     {
-      id: 9,
+      id: 11,
       title: 'FastTrack',
       description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
       tech: ['React', 'Django', 'SQL', 'Databases'],
@@ -712,7 +614,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/FastTrack'
     },
     {
-      id: 10,
+      id: 12,
       title: 'AI Resume Builder',
       description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
       tech: ['React', 'Django', 'SQL', 'Gen AI'],
@@ -720,93 +622,93 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
     },
     {
-      id: 11,
+      id: 13,
       title: 'Snake Game',
       description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
       tech: ['C++', 'OpenGL', 'Game Development'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Snake+Game',
+      image: '/snake_project.png',
       github: 'https://github.com/Gotam-Dulhani/Snake-Game'
     },
     {
-      id: 12,
+      id: 14,
       title: 'City Route Finder',
       description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
       tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=City+Route+Finder',
+      image: '/route_finder_project.png',
       github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
     },
     {
-      id: 13,
+      id: 15,
       title: 'Autonomous Ride Sharing Dispatch System',
       description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
       tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Ride+Sharing',
+      image: '/ride_sharing_project.png',
       github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
     },
     {
-      id: 14,
+      id: 16,
       title: 'Sentiment Analysis',
       description: 'A full-stack Sentiment Analysis web app built with FastAPI, NLTK (VADER), and React (Vite). It analyzes text and classifies sentiment as Positive, Negative, or Neutral with polarity scores for real-time emotional insights.',
       tech: ['FastAPI', 'NLTK', 'React', 'Python'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Sentiment+Analysis',
+      image: '/sentiment_analysis_project.png',
       github: 'https://github.com/Gotam-Dulhani/Sentiment_Analysis'
     },
     {
-      id: 15,
+      id: 17,
       title: 'Music Recommendation System',
       description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
       tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Music+Recommendation',
+      image: '/music_rec_project.svg',
       github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System'
     },
     {
-      id: 16,
+      id: 18,
       title: 'Image Classification',
       description: 'A full-stack Image Classification System using MobileNetV2 & TensorFlow. Drag-and-drop any image and get top-3 predictions with confidence scores. Built with Flask (backend) and React with Glassmorphism UI design.',
       tech: ['TensorFlow', 'MobileNetV2', 'Flask', 'React'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Image+Classification',
+      image: '/image_classification_project.svg',
       github: 'https://github.com/Gotam-Dulhani/Image-Classification'
     },
     {
-      id: 17,
-      title: 'Nexus',
-      description: 'A full-stack collaboration platform connecting investors and entrepreneurs, powered by React + TypeScript and Node.js + Express + MongoDB. Features JWT authentication, role-based dashboards, and real-time interactions.',
-      tech: ['React', 'TypeScript', 'Node.js', 'MongoDB'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Nexus',
+      id: 19,
+      title: 'Nexus — Investor-Entrepreneur Collaboration Platform',
+      description: 'Built a collaboration platform with e-signatures, real-time communication using Socket.IO, and conflict-aware meeting scheduling. Integrated Stripe payments, JWT authentication, OTP verification, and 18+ REST APIs; deployed on Vercel and Render.',
+      tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO', 'Stripe'],
+      image: '/nexus_project.svg',
       github: 'https://github.com/Gotam-Dulhani/Nexus'
     },
     {
-      id: 18,
+      id: 20,
       title: 'YouTube AI Summarizer',
       description: 'A Chrome extension that uses AI to summarize YouTube videos instantly. Just click to get concise, readable summaries without watching the full video. Powered by Generative AI and Hugging Face models.',
       tech: ['JavaScript', 'Chrome Extension', 'Gen AI', 'Hugging Face'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=YouTube+AI+Summarizer',
+      image: '/Summarizer.png',
       github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
     },
     {
-      id: 19,
+      id: 21,
       title: 'FAST Sports Complex Management System',
       description: 'A full-stack platform built with React, Node.js, and PostgreSQL to manage facilities, events, and equipment with secure CRUD operations and role-based dashboards. Features RESTful APIs, real-time data updates, and AI assistance powered by LangGraph, LangChain, and Groq (LLaMA 3).',
       tech: ['React', 'Node.js', 'PostgreSQL', 'LangChain', 'FastAPI'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=FAST+Sports+Complex',
+      image: '/sports_complex_project.svg',
       github: 'https://github.com/Gotam-Dulhani'
     },
     {
-      id: 20,
+      id: 22,
       title: 'Chatbot for FAQs',
       description: 'An intelligent FAQ Chatbot powered by NLP and machine learning. Built with Python, NLTK, and Scikit-Learn, it uses TF-IDF vectorization and cosine similarity to match user queries against a custom knowledge base for accurate, instant responses.',
       tech: ['Python', 'NLTK', 'Scikit-Learn', 'NLP'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Chatbot+for+FAQs',
+      image: '/chatbot_faq_project.svg',
       github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Chatbot-for-FAQs'
     },
     {
-      id: 21,
+      id: 23,
       title: 'Object Detection and Tracking',
       description: 'A high-performance real-time object detection and multi-object tracking system utilizing YOLOv8 and OpenCV. Detects 80+ classes with persistent IDs, confidence scores, and bounding boxes across frames for seamless live tracking.',
       tech: ['Python', 'YOLOv8', 'OpenCV', 'Computer Vision'],
-      image: 'https://placehold.co/600x400/1f2937/10b981?text=Object+Detection',
+      image: '/object_detection_project.svg',
       github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Object-Detection-and-Tracking'
-    },
+    }
   ];
 
   return (
@@ -906,7 +808,6 @@ const ContactSection = ({ setActiveSection }) => {
     firstName: '',
     lastName: '',
     phone: '',
-    service: '',
     message: ''
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -938,7 +839,6 @@ const ContactSection = ({ setActiveSection }) => {
             from_name: `${formData.firstName} ${formData.lastName}`,
             from_email: formData.phone, // Using phone as contact since no email field
             phone: formData.phone,
-            service: formData.service,
             message: formData.message,
             to_name: 'Gotam Dulhani',
           }
@@ -950,7 +850,6 @@ const ContactSection = ({ setActiveSection }) => {
           firstName: '',
           lastName: '',
           phone: '',
-          service: '',
           message: ''
         });
       } else {
@@ -1024,22 +923,7 @@ const ContactSection = ({ setActiveSection }) => {
               className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white placeholder-gray-400 focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
               required
             />
-            <select
-              name="service"
-              value={formData.service}
-              onChange={handleInputChange}
-              disabled={isSubmitting}
-              className="w-full bg-gray-800/50 backdrop-blur-sm border border-gray-700/50 rounded-xl px-4 py-3 text-white focus:outline-none focus:border-emerald-400 focus:bg-gray-800/70 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-              required
-            >
-              <option value="">Select a service</option>
-              <option value="web-development">Web Development</option>
-              <option value="Generative AI">Generative AI</option>
-              <option value="Graphic Design">Graphic Design</option>
-              <option value="game-development">Game Development</option>
-              <option value="Machine Learning">Machine Learning</option>
-              <option value="Microsoft Office Skills">Microsoft Office Skills</option>
-            </select>
+
             <textarea
               name="message"
               placeholder="Type your message here..."
@@ -1285,7 +1169,7 @@ const Portfolio = () => {
 
       <main>
         <HomeSection isLoaded={isLoaded} mousePosition={mousePosition} counts={counts} />
-        <ServicesSection setActiveSection={setActiveSection} />
+
         <ResumeSection activeTab={activeTab} setActiveTab={setActiveTab} />
         <WorkSection />
         <ContactSection setActiveSection={setActiveSection} />
