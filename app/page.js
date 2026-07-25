@@ -527,22 +527,33 @@ const WorkSection = () => {
   const projects = [
     {
       id: 1,
-      title: 'AI-Driven Multi-Utility Chatbot',
-      description: 'Built a production-ready AI chatbot using LangGraph and LangChain with Retrieval-Augmented Generation (RAG), persistent multi-thread conversations, PDF semantic search, and FAISS vector retrieval. Integrated OpenAI and Google Gemini models with web search, stock market lookup, calculator, and document retrieval tools while developing a Streamlit interface with real-time response streaming and persistent chat history.',
-      tech: ['LangGraph', 'LangChain', 'OpenAI', 'Google Gemini', 'Streamlit', 'FAISS'],
+      title: 'Multi-Utility Chatbot',
+      description: 'Multi-utility chatbot powered by LangGraph, LangChain, Groq, and FAISS. Chat with uploaded PDFs using RAG in 50+ languages, plus built-in web search, calculator, and live stock price tools. Features persistent multi-conversation history with clean streaming UI built on Streamlit.',
+      tech: ['LangGraph', 'LangChain', 'Groq', 'FAISS', 'Streamlit', 'SQLite'],
       image: '/chatbot_project.png',
-      github: 'https://github.com/Gotam-Dulhani'
+      github: 'https://github.com/Gotam-Dulhani/Multi-Utility-Chatbot',
+      live: 'https://langgraph-pdf-assistant.streamlit.app/'
     },
     {
       id: 2,
-      title: 'Agentic AI Blog Writer',
-      description: 'Developed an agentic AI blog-writing application using LangGraph and LangChain to orchestrate multi-step workflows for research, content generation, and refinement. Integrated OpenAI, Google Gemini, and Hugging Face models with prompt engineering and Retrieval-Augmented Generation (RAG) to generate context-aware blog content through an interactive Streamlit interface.',
-      tech: ['LangGraph', 'LangChain', 'OpenAI', 'Google Gemini', 'Hugging Face', 'Streamlit'],
+      title: 'Blog Writer Agent',
+      description: 'Multi-agent blog writer powered by LangGraph, Groq (Llama 3.3 70B), and Mistral. Give it a topic and it researches via Tavily, outlines, writes sections in parallel, fetches real stock photos from Pexels, and produces a finished Markdown blog with one-click ZIP download. Built with Streamlit, dark-themed UI.',
+      tech: ['LangGraph', 'Groq', 'Mistral', 'Tavily', 'Pexels', 'Streamlit'],
       image: '/blog_writer_project.png',
-      github: 'https://github.com/Gotam-Dulhani'
+      github: 'https://github.com/Gotam-Dulhani/Blog-Writer-Agent',
+      live: 'https://blog-writer-agent-9ar2uq4wxdbh5zejcogev9.streamlit.app/'
     },
     {
       id: 3,
+      title: 'Milestone Course Platform',
+      description: 'Full-stack milestone-based course platform built with Next.js 14, Supabase, and Tailwind CSS. Features secure authentication, student portal for browsing and enrolling in courses, admin panel for managing courses and milestones, role-based access control, and responsive design with dark/light theme support.',
+      tech: ['Next.js 14', 'TypeScript', 'Tailwind CSS', 'Supabase', 'PostgreSQL'],
+      image: '/chatbot_project.png',
+      github: 'https://github.com/Gotam-Dulhani/milestone-course-platform',
+      live: 'https://milestone-course-platform-three.vercel.app/'
+    },
+    {
+      id: 4,
       title: 'Restaurant Management System',
       description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
       tech: ['Assembly', 'System Programming', 'Database Management'],
@@ -550,15 +561,16 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
     },
     {
-      id: 4,
+      id: 5,
       title: 'Clothing Website',
       description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
       tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
       image: '/cloth.jpeg',
-      github: 'https://github.com/Gotam-Dulhani/Clothing-Website'
+      github: 'https://github.com/Gotam-Dulhani/Clothing-Website',
+      live: 'https://ecommerce-fullstack-design-omega-teal.vercel.app/'
     },
     {
-      id: 5,
+      id: 6,
       title: 'Centipede Game',
       description: 'A modern recreation of the classic Centipede arcade game using C++ and SFML. Features smooth movement, enemy spawning, collision detection, and score tracking — all built with an object-oriented approach for a retro yet responsive gameplay experience.',
       tech: ['C++', 'SFML', 'Game Development'],
@@ -566,7 +578,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Centipede-Game'
     },
     {
-      id: 6,
+      id: 7,
       title: 'Candy Crush Clone',
       description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
       tech: ['C++', 'Game Logic', 'OpenGL'],
@@ -574,7 +586,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
     },
     {
-      id: 7,
+      id: 8,
       title: 'Space Shooter Game',
       description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
       tech: ['C++', 'OOP', 'SFML'],
@@ -582,7 +594,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
     },
     {
-      id: 8,
+      id: 9,
       title: 'Swan Care Website',
       description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
       tech: ['HTML', 'CSS', 'JavaScript'],
@@ -590,7 +602,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Swan-Care'
     },
     {
-      id: 9,
+      id: 10,
       title: 'Expense Tracker',
       description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
       tech: ['C++', 'OOP', 'Data Structures'],
@@ -598,7 +610,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
     },
     {
-      id: 10,
+      id: 11,
       title: 'Gotam Portfolio',
       description: '🚀 My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
       tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
@@ -606,7 +618,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
     },
     {
-      id: 11,
+      id: 12,
       title: 'FastTrack',
       description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
       tech: ['React', 'Django', 'SQL', 'Databases'],
@@ -614,7 +626,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/FastTrack'
     },
     {
-      id: 12,
+      id: 13,
       title: 'AI Resume Builder',
       description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
       tech: ['React', 'Django', 'SQL', 'Gen AI'],
@@ -622,7 +634,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
     },
     {
-      id: 13,
+      id: 14,
       title: 'Snake Game',
       description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
       tech: ['C++', 'OpenGL', 'Game Development'],
@@ -630,7 +642,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Snake-Game'
     },
     {
-      id: 14,
+      id: 15,
       title: 'City Route Finder',
       description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
       tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
@@ -638,7 +650,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
     },
     {
-      id: 15,
+      id: 16,
       title: 'Autonomous Ride Sharing Dispatch System',
       description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
       tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
@@ -646,15 +658,16 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
     },
     {
-      id: 16,
+      id: 17,
       title: 'Sentiment Analysis',
       description: 'A full-stack Sentiment Analysis web app built with FastAPI, NLTK (VADER), and React (Vite). It analyzes text and classifies sentiment as Positive, Negative, or Neutral with polarity scores for real-time emotional insights.',
       tech: ['FastAPI', 'NLTK', 'React', 'Python'],
       image: '/sentiment_analysis_project.png',
-      github: 'https://github.com/Gotam-Dulhani/Sentiment_Analysis'
+      github: 'https://github.com/Gotam-Dulhani/Sentiment_Analysis',
+      live: 'https://sentiment-analysis-putk.vercel.app/'
     },
     {
-      id: 17,
+      id: 18,
       title: 'Music Recommendation System',
       description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
       tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
@@ -662,7 +675,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System'
     },
     {
-      id: 18,
+      id: 19,
       title: 'Image Classification',
       description: 'A full-stack Image Classification System using MobileNetV2 & TensorFlow. Drag-and-drop any image and get top-3 predictions with confidence scores. Built with Flask (backend) and React with Glassmorphism UI design.',
       tech: ['TensorFlow', 'MobileNetV2', 'Flask', 'React'],
@@ -670,15 +683,16 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Image-Classification'
     },
     {
-      id: 19,
+      id: 20,
       title: 'Nexus — Investor-Entrepreneur Collaboration Platform',
       description: 'Built a collaboration platform with e-signatures, real-time communication using Socket.IO, and conflict-aware meeting scheduling. Integrated Stripe payments, JWT authentication, OTP verification, and 18+ REST APIs; deployed on Vercel and Render.',
       tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO', 'Stripe'],
       image: '/nexus_project.svg',
-      github: 'https://github.com/Gotam-Dulhani/Nexus'
+      github: 'https://github.com/Gotam-Dulhani/Nexus',
+      live: 'https://nexus-neon-chi.vercel.app/'
     },
     {
-      id: 20,
+      id: 21,
       title: 'YouTube AI Summarizer',
       description: 'A Chrome extension that uses AI to summarize YouTube videos instantly. Just click to get concise, readable summaries without watching the full video. Powered by Generative AI and Hugging Face models.',
       tech: ['JavaScript', 'Chrome Extension', 'Gen AI', 'Hugging Face'],
@@ -686,7 +700,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
     },
     {
-      id: 21,
+      id: 22,
       title: 'FAST Sports Complex Management System',
       description: 'A full-stack platform built with React, Node.js, and PostgreSQL to manage facilities, events, and equipment with secure CRUD operations and role-based dashboards. Features RESTful APIs, real-time data updates, and AI assistance powered by LangGraph, LangChain, and Groq (LLaMA 3).',
       tech: ['React', 'Node.js', 'PostgreSQL', 'LangChain', 'FastAPI'],
@@ -694,15 +708,16 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani'
     },
     {
-      id: 22,
+      id: 23,
       title: 'Chatbot for FAQs',
       description: 'An intelligent FAQ Chatbot powered by NLP and machine learning. Built with Python, NLTK, and Scikit-Learn, it uses TF-IDF vectorization and cosine similarity to match user queries against a custom knowledge base for accurate, instant responses.',
       tech: ['Python', 'NLTK', 'Scikit-Learn', 'NLP'],
       image: '/chatbot_faq_project.svg',
-      github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Chatbot-for-FAQs'
+      github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Chatbot-for-FAQs',
+      live: 'https://chatbot-for-faqs-1.streamlit.app/'
     },
     {
-      id: 23,
+      id: 24,
       title: 'Object Detection and Tracking',
       description: 'A high-performance real-time object detection and multi-object tracking system utilizing YOLOv8 and OpenCV. Detects 80+ classes with persistent IDs, confidence scores, and bounding boxes across frames for seamless live tracking.',
       tech: ['Python', 'YOLOv8', 'OpenCV', 'Computer Vision'],
@@ -765,6 +780,16 @@ const WorkSection = () => {
                       className="w-12 h-12 rounded-xl bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:rotate-6 border border-white/20"
                     >
                       <Github size={20} />
+                    </a>
+                  )}
+                  {project.live && (
+                    <a
+                      href={project.live}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="w-12 h-12 rounded-xl bg-gray-800/50 backdrop-blur-sm flex items-center justify-center text-white hover:bg-emerald-400 hover:text-black transition-all duration-300 transform hover:scale-110 hover:-rotate-6 border border-white/20"
+                    >
+                      <ExternalLink size={20} />
                     </a>
                   )}
                 </div>
