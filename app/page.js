@@ -554,11 +554,11 @@ const WorkSection = () => {
     },
     {
       id: 4,
-      title: 'Clothing Website',
-      description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
-      tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
+      title: 'ShopNest — eCommerce Platform',
+      description: 'A full-stack premium dark luxury eCommerce platform built with Next.js 16, Firebase, and TailwindCSS. Features include product listing with 148 seeded products, cart management, wishlist, multi-step checkout, gift cards, user authentication with email verification, admin panel, and order confirmation emails via EmailJS.',
+      tech: ['Next.js 16', 'Firebase', 'TailwindCSS', 'TypeScript', 'EmailJS'],
       image: '/cloth.jpeg',
-      github: 'https://github.com/Gotam-Dulhani/Clothing-Website',
+      github: 'https://github.com/Gotam-Dulhani/Ecommerce-fullstack-design',
       live: 'https://ecommerce-fullstack-design-omega-teal.vercel.app/'
     },
     {
