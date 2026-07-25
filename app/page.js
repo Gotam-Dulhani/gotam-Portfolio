@@ -554,14 +554,6 @@ const WorkSection = () => {
     },
     {
       id: 4,
-      title: 'Restaurant Management System',
-      description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
-      tech: ['Assembly', 'System Programming', 'Database Management'],
-      image: '/RMS.webp',
-      github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
-    },
-    {
-      id: 5,
       title: 'Clothing Website',
       description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
       tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
@@ -570,95 +562,7 @@ const WorkSection = () => {
       live: 'https://ecommerce-fullstack-design-omega-teal.vercel.app/'
     },
     {
-      id: 6,
-      title: 'Centipede Game',
-      description: 'A modern recreation of the classic Centipede arcade game using C++ and SFML. Features smooth movement, enemy spawning, collision detection, and score tracking — all built with an object-oriented approach for a retro yet responsive gameplay experience.',
-      tech: ['C++', 'SFML', 'Game Development'],
-      image: '/centipede.webp',
-      github: 'https://github.com/Gotam-Dulhani/Centipede-Game'
-    },
-    {
-      id: 7,
-      title: 'Candy Crush Clone',
-      description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
-      tech: ['C++', 'Game Logic', 'OpenGL'],
-      image: '/CandyCrush.webp',
-      github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
-    },
-    {
-      id: 8,
-      title: 'Space Shooter Game',
-      description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
-      tech: ['C++', 'OOP', 'SFML'],
-      image: '/SSG.jpeg',
-      github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
-    },
-    {
-      id: 9,
-      title: 'Swan Care Website',
-      description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
-      tech: ['HTML', 'CSS', 'JavaScript'],
-      image: '/swancare.jpg',
-      github: 'https://github.com/Gotam-Dulhani/Swan-Care'
-    },
-    {
-      id: 10,
-      title: 'Expense Tracker',
-      description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
-      tech: ['C++', 'OOP', 'Data Structures'],
-      image: '/expense.jpeg',
-      github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
-    },
-    {
-      id: 11,
-      title: 'Gotam Portfolio',
-      description: '🚀 My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
-      tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
-      image: '/portfolio.jpg',
-      github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
-    },
-    {
-      id: 12,
-      title: 'FastTrack',
-      description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
-      tech: ['React', 'Django', 'SQL', 'Databases'],
-      image: '/fasttrack.jpg',
-      github: 'https://github.com/Gotam-Dulhani/FastTrack'
-    },
-    {
-      id: 13,
-      title: 'AI Resume Builder',
-      description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
-      tech: ['React', 'Django', 'SQL', 'Gen AI'],
-      image: '/resume.jpg',
-      github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
-    },
-    {
-      id: 14,
-      title: 'Snake Game',
-      description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
-      tech: ['C++', 'OpenGL', 'Game Development'],
-      image: '/snake_project.png',
-      github: 'https://github.com/Gotam-Dulhani/Snake-Game'
-    },
-    {
-      id: 15,
-      title: 'City Route Finder',
-      description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
-      tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
-      image: '/route_finder_project.png',
-      github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
-    },
-    {
-      id: 16,
-      title: 'Autonomous Ride Sharing Dispatch System',
-      description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
-      tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
-      image: '/ride_sharing_project.png',
-      github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
-    },
-    {
-      id: 17,
+      id: 5,
       title: 'Sentiment Analysis',
       description: 'A full-stack Sentiment Analysis web app built with FastAPI, NLTK (VADER), and React (Vite). It analyzes text and classifies sentiment as Positive, Negative, or Neutral with polarity scores for real-time emotional insights.',
       tech: ['FastAPI', 'NLTK', 'React', 'Python'],
@@ -667,23 +571,7 @@ const WorkSection = () => {
       live: 'https://sentiment-analysis-putk.vercel.app/'
     },
     {
-      id: 18,
-      title: 'Music Recommendation System',
-      description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
-      tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
-      image: '/music_rec_project.svg',
-      github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System'
-    },
-    {
-      id: 19,
-      title: 'Image Classification',
-      description: 'A full-stack Image Classification System using MobileNetV2 & TensorFlow. Drag-and-drop any image and get top-3 predictions with confidence scores. Built with Flask (backend) and React with Glassmorphism UI design.',
-      tech: ['TensorFlow', 'MobileNetV2', 'Flask', 'React'],
-      image: '/image_classification_project.svg',
-      github: 'https://github.com/Gotam-Dulhani/Image-Classification'
-    },
-    {
-      id: 20,
+      id: 6,
       title: 'Nexus — Investor-Entrepreneur Collaboration Platform',
       description: 'Built a collaboration platform with e-signatures, real-time communication using Socket.IO, and conflict-aware meeting scheduling. Integrated Stripe payments, JWT authentication, OTP verification, and 18+ REST APIs; deployed on Vercel and Render.',
       tech: ['React', 'Node.js', 'MongoDB', 'Socket.IO', 'Stripe'],
@@ -692,7 +580,128 @@ const WorkSection = () => {
       live: 'https://nexus-neon-chi.vercel.app/'
     },
     {
+      id: 7,
+      title: 'Chatbot for FAQs',
+      description: 'An intelligent FAQ Chatbot powered by NLP and machine learning. Built with Python, NLTK, and Scikit-Learn, it uses TF-IDF vectorization and cosine similarity to match user queries against a custom knowledge base for accurate, instant responses.',
+      tech: ['Python', 'NLTK', 'Scikit-Learn', 'NLP'],
+      image: '/chatbot_faq_project.svg',
+      github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Chatbot-for-FAQs',
+      live: 'https://chatbot-for-faqs-1.streamlit.app/'
+    },
+    {
+      id: 8,
+      title: 'Restaurant Management System',
+      description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
+      tech: ['Assembly', 'System Programming', 'Database Management'],
+      image: '/RMS.webp',
+      github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
+    },
+    {
+      id: 9,
+      title: 'Centipede Game',
+      description: 'A modern recreation of the classic Centipede arcade game using C++ and SFML. Features smooth movement, enemy spawning, collision detection, and score tracking — all built with an object-oriented approach for a retro yet responsive gameplay experience.',
+      tech: ['C++', 'SFML', 'Game Development'],
+      image: '/centipede.webp',
+      github: 'https://github.com/Gotam-Dulhani/Centipede-Game'
+    },
+    {
+      id: 10,
+      title: 'Candy Crush Clone',
+      description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
+      tech: ['C++', 'Game Logic', 'OpenGL'],
+      image: '/CandyCrush.webp',
+      github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
+    },
+    {
+      id: 11,
+      title: 'Space Shooter Game',
+      description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
+      tech: ['C++', 'OOP', 'SFML'],
+      image: '/SSG.jpeg',
+      github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
+    },
+    {
+      id: 12,
+      title: 'Swan Care Website',
+      description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
+      tech: ['HTML', 'CSS', 'JavaScript'],
+      image: '/swancare.jpg',
+      github: 'https://github.com/Gotam-Dulhani/Swan-Care'
+    },
+    {
+      id: 13,
+      title: 'Expense Tracker',
+      description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
+      tech: ['C++', 'OOP', 'Data Structures'],
+      image: '/expense.jpeg',
+      github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
+    },
+    {
+      id: 14,
+      title: 'Gotam Portfolio',
+      description: 'My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
+      tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
+      image: '/portfolio.jpg',
+      github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
+    },
+    {
+      id: 15,
+      title: 'FastTrack',
+      description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
+      tech: ['React', 'Django', 'SQL', 'Databases'],
+      image: '/fasttrack.jpg',
+      github: 'https://github.com/Gotam-Dulhani/FastTrack'
+    },
+    {
+      id: 16,
+      title: 'AI Resume Builder',
+      description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
+      tech: ['React', 'Django', 'SQL', 'Gen AI'],
+      image: '/resume.jpg',
+      github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
+    },
+    {
+      id: 17,
+      title: 'Snake Game',
+      description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
+      tech: ['C++', 'OpenGL', 'Game Development'],
+      image: '/snake_project.png',
+      github: 'https://github.com/Gotam-Dulhani/Snake-Game'
+    },
+    {
+      id: 18,
+      title: 'City Route Finder',
+      description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
+      tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
+      image: '/route_finder_project.png',
+      github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
+    },
+    {
+      id: 19,
+      title: 'Autonomous Ride Sharing Dispatch System',
+      description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
+      tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
+      image: '/ride_sharing_project.png',
+      github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
+    },
+    {
+      id: 20,
+      title: 'Music Recommendation System',
+      description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
+      tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
+      image: '/music_rec_project.svg',
+      github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System'
+    },
+    {
       id: 21,
+      title: 'Image Classification',
+      description: 'A full-stack Image Classification System using MobileNetV2 & TensorFlow. Drag-and-drop any image and get top-3 predictions with confidence scores. Built with Flask (backend) and React with Glassmorphism UI design.',
+      tech: ['TensorFlow', 'MobileNetV2', 'Flask', 'React'],
+      image: '/image_classification_project.svg',
+      github: 'https://github.com/Gotam-Dulhani/Image-Classification'
+    },
+    {
+      id: 22,
       title: 'YouTube AI Summarizer',
       description: 'A Chrome extension that uses AI to summarize YouTube videos instantly. Just click to get concise, readable summaries without watching the full video. Powered by Generative AI and Hugging Face models.',
       tech: ['JavaScript', 'Chrome Extension', 'Gen AI', 'Hugging Face'],
@@ -700,21 +709,12 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
     },
     {
-      id: 22,
+      id: 23,
       title: 'FAST Sports Complex Management System',
       description: 'A full-stack platform built with React, Node.js, and PostgreSQL to manage facilities, events, and equipment with secure CRUD operations and role-based dashboards. Features RESTful APIs, real-time data updates, and AI assistance powered by LangGraph, LangChain, and Groq (LLaMA 3).',
       tech: ['React', 'Node.js', 'PostgreSQL', 'LangChain', 'FastAPI'],
       image: '/sports_complex_project.svg',
       github: 'https://github.com/Gotam-Dulhani'
-    },
-    {
-      id: 23,
-      title: 'Chatbot for FAQs',
-      description: 'An intelligent FAQ Chatbot powered by NLP and machine learning. Built with Python, NLTK, and Scikit-Learn, it uses TF-IDF vectorization and cosine similarity to match user queries against a custom knowledge base for accurate, instant responses.',
-      tech: ['Python', 'NLTK', 'Scikit-Learn', 'NLP'],
-      image: '/chatbot_faq_project.svg',
-      github: 'https://github.com/Gotam-Dulhani/ApexcifyTechnologys_Chatbot-for-FAQs',
-      live: 'https://chatbot-for-faqs-1.streamlit.app/'
     },
     {
       id: 24,
