@@ -590,6 +590,15 @@ const WorkSection = () => {
     },
     {
       id: 8,
+      title: 'Music Recommendation System',
+      description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
+      tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
+      image: '/music_rec_project.svg',
+      github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System',
+      live: 'https://music-recommendation-system-orcin.vercel.app/'
+    },
+    {
+      id: 9,
       title: 'Restaurant Management System',
       description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
       tech: ['Assembly', 'System Programming', 'Database Management'],
@@ -597,7 +606,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
     },
     {
-      id: 9,
+      id: 10,
       title: 'Centipede Game',
       description: 'A modern recreation of the classic Centipede arcade game using C++ and SFML. Features smooth movement, enemy spawning, collision detection, and score tracking — all built with an object-oriented approach for a retro yet responsive gameplay experience.',
       tech: ['C++', 'SFML', 'Game Development'],
@@ -605,7 +614,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Centipede-Game'
     },
     {
-      id: 10,
+      id: 11,
       title: 'Candy Crush Clone',
       description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
       tech: ['C++', 'Game Logic', 'OpenGL'],
@@ -613,7 +622,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
     },
     {
-      id: 11,
+      id: 12,
       title: 'Space Shooter Game',
       description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
       tech: ['C++', 'OOP', 'SFML'],
@@ -621,7 +630,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
     },
     {
-      id: 12,
+      id: 13,
       title: 'Swan Care Website',
       description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
       tech: ['HTML', 'CSS', 'JavaScript'],
@@ -629,7 +638,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Swan-Care'
     },
     {
-      id: 13,
+      id: 14,
       title: 'Expense Tracker',
       description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
       tech: ['C++', 'OOP', 'Data Structures'],
@@ -637,7 +646,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
     },
     {
-      id: 14,
+      id: 15,
       title: 'Gotam Portfolio',
       description: 'My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
       tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
@@ -645,7 +654,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
     },
     {
-      id: 15,
+      id: 16,
       title: 'FastTrack',
       description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
       tech: ['React', 'Django', 'SQL', 'Databases'],
@@ -653,7 +662,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/FastTrack'
     },
     {
-      id: 16,
+      id: 17,
       title: 'AI Resume Builder',
       description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
       tech: ['React', 'Django', 'SQL', 'Gen AI'],
@@ -661,7 +670,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
     },
     {
-      id: 17,
+      id: 18,
       title: 'Snake Game',
       description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
       tech: ['C++', 'OpenGL', 'Game Development'],
@@ -669,7 +678,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Snake-Game'
     },
     {
-      id: 18,
+      id: 19,
       title: 'City Route Finder',
       description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
       tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
@@ -677,20 +686,12 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
     },
     {
-      id: 19,
+      id: 20,
       title: 'Autonomous Ride Sharing Dispatch System',
       description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
       tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
       image: '/ride_sharing_project.png',
       github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
-    },
-    {
-      id: 20,
-      title: 'Music Recommendation System',
-      description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
-      tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
-      image: '/music_rec_project.svg',
-      github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System'
     },
     {
       id: 21,
