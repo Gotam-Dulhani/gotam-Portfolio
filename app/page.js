@@ -599,6 +599,14 @@ const WorkSection = () => {
     },
     {
       id: 9,
+      title: 'Clothing Website',
+      description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
+      tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
+      image: '/cloth.jpeg',
+      github: 'https://github.com/Gotam-Dulhani/Clothing-Website'
+    },
+    {
+      id: 10,
       title: 'Restaurant Management System',
       description: 'A complete restaurant management system developed in Assembly language, featuring user authentication, table reservations, order processing, and billing. Demonstrates low-level programming concepts and efficient system logic handling for real-world operations.',
       tech: ['Assembly', 'System Programming', 'Database Management'],
@@ -606,7 +614,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/restaurant-management-system'
     },
     {
-      id: 10,
+      id: 11,
       title: 'Centipede Game',
       description: 'A modern recreation of the classic Centipede arcade game using C++ and SFML. Features smooth movement, enemy spawning, collision detection, and score tracking — all built with an object-oriented approach for a retro yet responsive gameplay experience.',
       tech: ['C++', 'SFML', 'Game Development'],
@@ -614,7 +622,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Centipede-Game'
     },
     {
-      id: 11,
+      id: 12,
       title: 'Candy Crush Clone',
       description: 'An engaging match-three puzzle game inspired by Candy Crush, built using C++ and OOP principles. Features colorful tile-matching mechanics, score tracking, cascading matches, and a grid-based logic system for interactive gameplay.',
       tech: ['C++', 'Game Logic', 'OpenGL'],
@@ -622,7 +630,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Candy-Crush-Game'
     },
     {
-      id: 12,
+      id: 13,
       title: 'Space Shooter Game',
       description: 'A dynamic space shooter game developed in C++ using Object-Oriented Programming principles. Players control a spaceship to destroy incoming enemies, avoid obstacles, and progress through increasingly challenging levels with smooth graphics and responsive controls powered by the SFML library.',
       tech: ['C++', 'OOP', 'SFML'],
@@ -630,7 +638,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/space-shooter-game'
     },
     {
-      id: 13,
+      id: 14,
       title: 'Swan Care Website',
       description: 'A responsive and elegant website for Swan Care services, showcasing features, service offerings, and contact forms using HTML, CSS, and JavaScript.',
       tech: ['HTML', 'CSS', 'JavaScript'],
@@ -638,7 +646,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Swan-Care'
     },
     {
-      id: 14,
+      id: 15,
       title: 'Expense Tracker',
       description: 'A console-based expense tracker developed in C++ using Object-Oriented Programming and Data Structures concepts. It allows users to add, view, and manage their daily expenses efficiently.',
       tech: ['C++', 'OOP', 'Data Structures'],
@@ -646,7 +654,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Expense-Tracker-Project'
     },
     {
-      id: 15,
+      id: 16,
       title: 'Gotam Portfolio',
       description: 'My personal portfolio built with Next.js, showcasing projects, resume, and skills in web development, Game Development, ML and AI. Features smooth scroll, responsive design, and a "Hire Me" call-to-action for collaboration and freelance opportunities.',
       tech: ['Next.js', 'React', 'Tailwind CSS', 'JavaScript'],
@@ -654,7 +662,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Gotam-Portfolio'
     },
     {
-      id: 16,
+      id: 17,
       title: 'FastTrack',
       description: 'FastTrack – Student Carpool & Ride Sharing Platform. A web application built with React (frontend) and Django (backend) to help students organize carpools and share rides efficiently.',
       tech: ['React', 'Django', 'SQL', 'Databases'],
@@ -662,7 +670,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/FastTrack'
     },
     {
-      id: 17,
+      id: 18,
       title: 'AI Resume Builder',
       description: 'AI-powered Resume Builder that helps users generate professional, tailored resumes in seconds. Just input your details, and the tool crafts ATS-friendly, job-ready resumes using smart templates and Generative AI.',
       tech: ['React', 'Django', 'SQL', 'Gen AI'],
@@ -670,7 +678,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/AI-Resume-Builder'
     },
     {
-      id: 18,
+      id: 19,
       title: 'Snake Game',
       description: 'A classic Snake Game built in C++ using the OpenGL library. Features smooth controls, growing snake mechanics, score tracking, and collision detection for a fun retro gaming experience.',
       tech: ['C++', 'OpenGL', 'Game Development'],
@@ -678,7 +686,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Snake-Game'
     },
     {
-      id: 19,
+      id: 20,
       title: 'City Route Finder',
       description: 'A Python-based AI pathfinding visualization tool that compares BFS, DFS, A*, and Bidirectional BFS on a 30×30 grid map. Users can add start/end points, obstacles, and terrain to visually understand how each algorithm navigates.',
       tech: ['Python', 'AI', 'Pathfinding', 'Visualization'],
@@ -686,7 +694,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/City-Route-Finder'
     },
     {
-      id: 20,
+      id: 21,
       title: 'Autonomous Ride Sharing Dispatch System',
       description: 'A real-time ride-sharing dispatch simulator written in C for Linux. Uses POSIX threads, semaphores, mutex locks, reader-writer locks, and condition variables for concurrent and efficient ride management.',
       tech: ['C', 'Linux', 'POSIX Threads', 'System Programming'],
@@ -694,7 +702,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Autonomous-Ride-Sharing-Dispatch-System'
     },
     {
-      id: 21,
+      id: 22,
       title: 'Image Classification',
       description: 'A full-stack Image Classification System using MobileNetV2 & TensorFlow. Drag-and-drop any image and get top-3 predictions with confidence scores. Built with Flask (backend) and React with Glassmorphism UI design.',
       tech: ['TensorFlow', 'MobileNetV2', 'Flask', 'React'],
@@ -702,7 +710,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Image-Classification'
     },
     {
-      id: 22,
+      id: 23,
       title: 'YouTube AI Summarizer',
       description: 'A Chrome extension that uses AI to summarize YouTube videos instantly. Just click to get concise, readable summaries without watching the full video. Powered by Generative AI and Hugging Face models.',
       tech: ['JavaScript', 'Chrome Extension', 'Gen AI', 'Hugging Face'],
@@ -710,7 +718,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani/Youtube-AI-Summerizer'
     },
     {
-      id: 23,
+      id: 24,
       title: 'FAST Sports Complex Management System',
       description: 'A full-stack platform built with React, Node.js, and PostgreSQL to manage facilities, events, and equipment with secure CRUD operations and role-based dashboards. Features RESTful APIs, real-time data updates, and AI assistance powered by LangGraph, LangChain, and Groq (LLaMA 3).',
       tech: ['React', 'Node.js', 'PostgreSQL', 'LangChain', 'FastAPI'],
@@ -718,7 +726,7 @@ const WorkSection = () => {
       github: 'https://github.com/Gotam-Dulhani'
     },
     {
-      id: 24,
+      id: 25,
       title: 'Object Detection and Tracking',
       description: 'A high-performance real-time object detection and multi-object tracking system utilizing YOLOv8 and OpenCV. Detects 80+ classes with persistent IDs, confidence scores, and bounding boxes across frames for seamless live tracking.',
       tech: ['Python', 'YOLOv8', 'OpenCV', 'Computer Vision'],
