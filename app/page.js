@@ -590,20 +590,21 @@ const WorkSection = () => {
     },
     {
       id: 8,
+      title: 'Clothing Website',
+      description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
+      tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
+      image: '/cloth.jpeg',
+      github: 'https://github.com/Gotam-Dulhani/Clothing-Website',
+      live: 'https://clothing-website-theta-gilt.vercel.app/'
+    },
+    {
+      id: 9,
       title: 'Music Recommendation System',
       description: 'VibeStream — an interactive AI music discovery app built with Streamlit. Features a hybrid recommendation engine combining content-based filtering (Audio DNA) and collaborative patterns to suggest personalized tracks.',
       tech: ['Python', 'Streamlit', 'Machine Learning', 'AI'],
       image: '/music_rec_project.svg',
       github: 'https://github.com/Gotam-Dulhani/Music-Recommendation-System',
       live: 'https://music-recommendation-system-orcin.vercel.app/'
-    },
-    {
-      id: 9,
-      title: 'Clothing Website',
-      description: 'A fully responsive e-commerce website for clothing built with HTML, CSS, Bootstrap, and JavaScript. Includes product listings, category filters, shopping cart functionality, and a clean, user-friendly interface for a seamless shopping experience.',
-      tech: ['HTML', 'CSS', 'Bootstrap', 'JavaScript'],
-      image: '/cloth.jpeg',
-      github: 'https://github.com/Gotam-Dulhani/Clothing-Website'
     },
     {
       id: 10,
